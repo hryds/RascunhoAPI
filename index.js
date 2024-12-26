@@ -2,6 +2,7 @@ const express = require('express');
 const bodyparser = require('body-parser');
 const sequelize = require('./data/database');
 const User = require('./models/user');
+const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
 
@@ -23,12 +24,7 @@ app.get('/', (req, res, next) => {
 app.use('/users', require('./routes/users'));
 
 //error handling
-app.use((error, req, res, next) => {
-  console.log(error);
-  const status = error.statusCode || 500;
-  const message = error.message;
-  res.status(status).json({ message: message });
-});
+app.use(errorHandler);
 
 //sync database
 sequelize
