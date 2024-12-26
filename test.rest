@@ -26,3 +26,20 @@ GET http://localhost:3000/users/20
 
 ###
 DELETE http://localhost:3000/users/16
+
+
+###
+GET http://localhost:3000/embarcacoes
+
+###
+
+### 
+POST http://localhost:3000/embarcacoes
+Content-Type: application/json
+
+{
+    "name": "Barquinho II",
+    "rgp": "MA123469558",
+    "uf": "MA"
+
+}
