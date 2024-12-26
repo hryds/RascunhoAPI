@@ -1,0 +1,28 @@
+###
+GET http://localhost:3000/
+
+###
+GET http://localhost:3000/users
+
+### 
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "name": "Empresa 3",
+    "email": "empresa1@email.com",
+    "cnpj": "97.177.975/0601-43", 
+    "tipo": "Comum",
+    "status": "Pendente",
+    "rgp": "AA12346978",
+    "cep": "72000000",
+    "uf": "DF"
+
+}
+
+###
+GET http://localhost:3000/users/20
+
+
+###
+DELETE http://localhost:3000/users/16
