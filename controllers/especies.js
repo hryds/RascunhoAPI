@@ -4,24 +4,24 @@ const Especie = require('../models/especie');
 
 //get all especies
 exports.getEspecies = (req, res, next) => {
-    Especie.findAll()
-        .then(especies => {
-            res.status(200).json({ especies: especies });
-        })
-        .catch(err => console.log(err));
+  Especie.findAll()
+    .then(especies => {
+      res.status(200).json({ especies: especies });
+    })
+    .catch(err => console.log(err));
 }
 
 //get especie by id
 exports.getEspecie = (req, res, next) => {
-    const especieId = req.params.especieId;
-    Especie.findByPk(especieId)
-        .then(especie => {
-            if (!especie) {
-                return res.status(404).json({ message: 'Especie not found!' });
-            }
-            res.status(200).json({ especie: especie });
-        })
-        .catch(err => console.log(err));
+  const especieId = req.params.especieId;
+  Especie.findByPk(especieId)
+    .then(especie => {
+      if (!especie) {
+        return res.status(404).json({ message: 'Especie not found!' });
+      }
+      res.status(200).json({ especie: especie });
+    })
+    .catch(err => console.log(err));
 }
 
 //create especie
@@ -41,7 +41,7 @@ exports.createEspecie = (req, res, next) => {
     })
     .catch(err => {
       console.log(err);
-    }); 
+    });
 }
 
 //update especie
@@ -59,7 +59,7 @@ exports.updateEspecie = (req, res, next) => {
       return especie.save();
     })
     .then(result => {
-      res.status(200).json({message: 'Especie updated!', especie: result});
+      res.status(200).json({ message: 'Especie updated!', especie: result });
     })
     .catch(err => console.log(err));
 }

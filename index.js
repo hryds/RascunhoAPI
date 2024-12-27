@@ -6,6 +6,7 @@ const Embarcacao = require('./models/embarcacao');
 const Especie = require('./models/especie');
 const Producao = require('./models/producao');
 const errorHandler = require('./middlewares/errorHandler');
+const associations = require('./models/associations');
 
 const app = express();
 
@@ -34,7 +35,7 @@ app.use(errorHandler);
 
 //sync database
 sequelize
-  .sync()
+  .sync({ alter: true })
   .then(result => {
     console.log("Database connected");
     app.listen(3000);

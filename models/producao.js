@@ -8,11 +8,11 @@ const Producao = db.define('producao', {
         allowNull: false,
         primaryKey: true
     },
-    dataInicial:{
+    dataInicial: {
         type: Sequelize.DATEONLY,
         allowNull: false
     },
-    dataFinal:{
+    dataFinal: {
         type: Sequelize.DATEONLY,
         allowNull: false
     }

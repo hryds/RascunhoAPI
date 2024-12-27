@@ -4,24 +4,24 @@ const User = require('../models/user');
 
 //get all users
 exports.getUsers = (req, res, next) => {
-    User.findAll() //select * from users
-        .then(users => {
-            res.status(200).json({ users: users });
-        })
-        .catch(err => console.log(err));
+  User.findAll() //select * from users
+    .then(users => {
+      res.status(200).json({ users: users });
+    })
+    .catch(err => console.log(err));
 }
 
 //get user by id
 exports.getUser = (req, res, next) => {
-    const userId = req.params.userId;
-    User.findByPk(userId)
-        .then(user => {
-            if (!user) { 
-                return res.status(404).json({ message: 'User not found!' });
-            }
-            res.status(200).json({ user: user });
-        })
-        .catch(err => console.log(err));
+  const userId = req.params.userId;
+  User.findByPk(userId)
+    .then(user => {
+      if (!user) {
+        return res.status(404).json({ message: 'User not found!' });
+      }
+      res.status(200).json({ user: user });
+    })
+    .catch(err => console.log(err));
 }
 
 //create user
@@ -55,7 +55,7 @@ exports.createUser = (req, res, next) => {
     })
     .catch(err => {
       console.log(err);
-    }); 
+    });
 }
 
 //update user
@@ -86,7 +86,7 @@ exports.updateUser = (req, res, next) => {
       return user.save();
     })
     .then(result => {
-      res.status(200).json({message: 'User updated!', user: result});
+      res.status(200).json({ message: 'User updated!', user: result });
     })
     .catch(err => console.log(err));
 }

@@ -8,12 +8,12 @@ const Especie = db.define('especie', {
         allowNull: false,
         primaryKey: true
     },
-    nomeComum:{
+    nomeComum: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true
     },
-    nomeCientifico:{
+    nomeCientifico: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true

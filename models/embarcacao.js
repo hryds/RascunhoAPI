@@ -2,22 +2,22 @@ const Sequelize = require('sequelize');
 const db = require('../data/database');
 
 const Embarcacao = db.define('embarcacao', {
-    id:{
+    id: {
         type: Sequelize.DataTypes.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
-    name:{
+    name: {
         type: Sequelize.DataTypes.STRING,
         allowNull: false
     },
-    rgp:{
+    rgp: {
         type: Sequelize.DataTypes.STRING,
         allowNull: false,
         unique: true
     },
-    uf:{
+    uf: {
         type: Sequelize.DataTypes.STRING,
         allowNull: false
     }
