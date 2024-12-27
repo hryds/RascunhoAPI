@@ -1,6 +1,9 @@
+### Localhost
+
 ###
 GET http://localhost:3000/
 
+### Usuários
 ###
 GET http://localhost:3000/users
 
@@ -28,10 +31,9 @@ GET http://localhost:3000/users/20
 DELETE http://localhost:3000/users/16
 
 
+### Embarcações
 ###
 GET http://localhost:3000/embarcacoes
-
-###
 
 ### 
 POST http://localhost:3000/embarcacoes
@@ -44,7 +46,7 @@ Content-Type: application/json
 
 }
 
-
+### Espécies
 ###
 GET http://localhost:3000/especies
 
@@ -67,4 +69,28 @@ Content-Type: application/json
     "nomeComum": "Bonito listrado",
     "nomeCientifico": "Katsuwonus pelamis "
 
+}
+
+
+### Mapas de Produção
+###
+GET http://localhost:3000/producoes
+
+
+### 
+POST http://localhost:3000/producoes
+Content-Type: application/json
+
+{
+  "dataInicial": "2024-06-05",
+  "dataFinal": "2024-05-05"
+}
+
+### 
+POST http://localhost:3000/producoes
+Content-Type: application/json
+
+{
+  "dataInicial": "2024-06-04",
+  "dataFinal": "2024-05-09"
 }

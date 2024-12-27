@@ -4,6 +4,7 @@ const sequelize = require('./data/database');
 const User = require('./models/user');
 const Embarcacao = require('./models/embarcacao');
 const Especie = require('./models/especie');
+const Producao = require('./models/producao');
 const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
@@ -26,6 +27,7 @@ app.get('/', (req, res, next) => {
 app.use('/users', require('./routes/users'));
 app.use('/embarcacoes', require('./routes/embarcacoes'));
 app.use('/especies', require('./routes/especies'));
+app.use('/producoes', require('./routes/producoes'));
 
 //error handling
 app.use(errorHandler);
