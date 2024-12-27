@@ -3,6 +3,7 @@ const bodyparser = require('body-parser');
 const sequelize = require('./data/database');
 const User = require('./models/user');
 const Embarcacao = require('./models/embarcacao');
+const Especie = require('./models/especie');
 const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
@@ -24,6 +25,7 @@ app.get('/', (req, res, next) => {
 //CRUD routes
 app.use('/users', require('./routes/users'));
 app.use('/embarcacoes', require('./routes/embarcacoes'));
+app.use('/especies', require('./routes/especies'));
 
 //error handling
 app.use(errorHandler);

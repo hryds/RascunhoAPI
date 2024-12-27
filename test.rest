@@ -43,3 +43,28 @@ Content-Type: application/json
     "uf": "MA"
 
 }
+
+
+###
+GET http://localhost:3000/especies
+
+
+### 
+POST http://localhost:3000/especies
+Content-Type: application/json
+
+{
+    "nomeComum": "Albacora bandolim",
+    "nomeCientifico": "Thunnus obesus"
+
+}
+
+### 
+POST http://localhost:3000/especies
+Content-Type: application/json
+
+{
+    "nomeComum": "Bonito listrado",
+    "nomeCientifico": "Katsuwonus pelamis "
+
+}
