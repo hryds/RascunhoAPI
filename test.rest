@@ -14,10 +14,10 @@ Content-Type: application/json
 {
     "name": "Empresa 3",
     "email": "empresa1@email.com",
-    "cnpj": "97.177.975/0601-43", 
+    "cnpj": "97.167.975/0601-43", 
     "tipo": "Comum",
     "status": "Pendente",
-    "rgp": "AA12346978",
+    "rgp": "AA12346678",
     "cep": "72000000",
     "uf": "DF"
 
@@ -95,4 +95,18 @@ Content-Type: application/json
   "dataInicial": "2024-06-04",
   "dataFinal": "2024-05-09",
   "userId": "99"
+}
+
+
+### UserEmbarcacao
+###
+GET http://localhost:3000/userEmbarcacoes
+
+### 
+POST http://localhost:3000/userEmbarcacoes
+Content-Type: application/json
+
+{
+  "userId": 20,
+  "embarcacaoId": 2
 }
