@@ -8,6 +8,7 @@ const Producao = require('./models/producao');
 const errorHandler = require('./middlewares/errorHandler');
 const associations = require('./models/associations');
 const UserEmbarcacao = require('./models/userEmbarcacao');
+const ProducaoEmbarcacaoEspecie = require ('./models/producaoEmbarcacaoEspecie');
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use('/embarcacoes', require('./routes/embarcacoes'));
 app.use('/especies', require('./routes/especies'));
 app.use('/producoes', require('./routes/producoes'));
 app.use('/userEmbarcacoes', require('./routes/userEmbarcacao'));
+app.use('/ProducaoEmbarcacaoEspecies', require('./routes/producaoEmbarcacaoEspecie'));
 
 //error handling
 app.use(errorHandler);
