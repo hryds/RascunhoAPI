@@ -19,7 +19,7 @@ const ProducaoEmbarcacaoEspecie = db.define('producaoEmbarcacaoEspecie', {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-            model: 'producaos',
+            model: 'producoes',
             key: 'id',
         }
     },
@@ -27,16 +27,16 @@ const ProducaoEmbarcacaoEspecie = db.define('producaoEmbarcacaoEspecie', {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-            model: 'embarcacaos',
-            key: 'id', 
+            model: 'embarcacoes',
+            key: 'id',
         }
     },
     especieId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-            model: 'especies', 
-            key: 'id', 
+            model: 'especies',
+            key: 'id',
         }
     },
     peso: {

@@ -50,11 +50,11 @@ exports.createProducaoEmbarcacaoEspecie = (req, res, next) => {
 
 //update ProducaoEmbarcacaoEspecie
 exports.updateProducaoEmbarcacaoEspecie = (req, res, next) => {
-    const updatedproducaoId = req.body.producaoId;
-    const updatedespecieId = req.body.especieId;
-    const updatedembarcacaoId = req.body.embarcacaoId;
-    const updatedPeso= req.body.peso;
-    ProducaoEmbarcacaoEspecie.findByPk(producaoEmbarcacaoEspecieId)
+  const updatedproducaoId = req.body.producaoId;
+  const updatedespecieId = req.body.especieId;
+  const updatedembarcacaoId = req.body.embarcacaoId;
+  const updatedPeso = req.body.peso;
+  ProducaoEmbarcacaoEspecie.findByPk(producaoEmbarcacaoEspecieId)
     .then(producaoEmbarcacaoEspecie => {
       if (!producaoEmbarcacaoEspecie) {
         return res.status(404).json({ message: 'ProducaoEmbarcacaoEspecienot found!' });
@@ -66,7 +66,7 @@ exports.updateProducaoEmbarcacaoEspecie = (req, res, next) => {
       return producaoEmbarcacaoEspecie.save();
     })
     .then(result => {
-      res.status(200).json({ message: ' producaoEmbarcacaoEspecie updated!',  producaoEmbarcacaoEspecie: result });
+      res.status(200).json({ message: ' producaoEmbarcacaoEspecie updated!', producaoEmbarcacaoEspecie: result });
     })
     .catch(err => console.log(err));
 }
@@ -79,7 +79,7 @@ exports.deleteproducaoEmbarcacaoEspecie = (req, res, next) => {
       if (!producaoEmbarcacaoEspecie) {
         return res.status(404).json({ message: 'producaoEmbarcacaoEspecie not found!' });
       }
-      return ProducaoEmbarcacaoEspecieo.destroy({
+      return ProducaoEmbarcacaoEspecie.destroy({
         where: {
           Id: producaoEmbarcacaoEspecieId
         }

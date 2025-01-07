@@ -8,7 +8,7 @@ const Producao = require('./models/producao');
 const errorHandler = require('./middlewares/errorHandler');
 const associations = require('./models/associations');
 const UserEmbarcacao = require('./models/userEmbarcacao');
-const ProducaoEmbarcacaoEspecie = require ('./models/producaoEmbarcacaoEspecie');
+const ProducaoEmbarcacaoEspecie = require('./models/producaoEmbarcacaoEspecie');
 
 const app = express();
 

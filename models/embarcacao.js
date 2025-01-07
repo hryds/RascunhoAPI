@@ -21,6 +21,11 @@ const Embarcacao = db.define('embarcacao', {
         type: Sequelize.DataTypes.STRING,
         allowNull: false
     }
-});
+},
+    {
+        tableName: 'embarcacoes'
+
+    }
+);
 
 module.exports = Embarcacao;

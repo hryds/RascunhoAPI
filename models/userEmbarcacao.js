@@ -27,9 +27,13 @@ const UserEmbarcacao = db.define('userEmbarcacao', {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-            model: 'embarcacaos', // Nome da tabela de embarcações
+            model: 'embarcacoes', // Nome da tabela de embarcações
             key: 'id', // Chave primária da tabela de embarcações
         }
     }
-});
+},
+    {
+        tableName: 'userEmbarcacoes'
+
+    });
 module.exports = UserEmbarcacao;

@@ -16,6 +16,11 @@ const Producao = db.define('producao', {
         type: Sequelize.DATEONLY,
         allowNull: false
     }
-});
+},
+    {
+        tableName: 'producoes'
+
+    }
+);
 
 module.exports = Producao;

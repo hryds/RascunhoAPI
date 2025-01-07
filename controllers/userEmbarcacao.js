@@ -29,7 +29,7 @@ exports.createuserEmbarcacao = (req, res, next) => {
   const userId = req.body.userId;
   const embarcacaoId = req.body.embarcacaoId;
   UserEmbarcacao.create({
-    userId: userId ,
+    userId: userId,
     embarcacaoId: embarcacaoId
   })
     .then(result => {
@@ -46,8 +46,8 @@ exports.createuserEmbarcacao = (req, res, next) => {
 
 //update userEmbarcacao
 exports.updateuserEmbarcacao = (req, res, next) => {
-    const updateduserId = req.body.userId;
-    const updatedembarcacaoId = req.body.embarcacaoId;
+  const updateduserId = req.body.userId;
+  const updatedembarcacaoId = req.body.embarcacaoId;
   UserEmbarcacao.findByPk(userEmbarcacaoId)
     .then(userEmbarcacao => {
       if (!userEmbarcacao) {
