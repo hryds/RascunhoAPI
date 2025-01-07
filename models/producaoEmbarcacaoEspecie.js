@@ -43,5 +43,13 @@ const ProducaoEmbarcacaoEspecie = db.define('producaoEmbarcacaoEspecie', {
         type: Sequelize.FLOAT,
         allowNull: false
     }
+}, {
+    indexes: [
+        {
+            name: 'producao_embarcacao_especie_unique',
+            unique: true, 
+            fields: ['producaoId', 'embarcacaoId', 'especieId']
+        },
+    ]
 });
 module.exports = ProducaoEmbarcacaoEspecie;
