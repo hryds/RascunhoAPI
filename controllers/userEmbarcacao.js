@@ -25,7 +25,7 @@ exports.getUserEmbarcacao = (req, res, next) => {
 }
 
 //create userEmbarcacao
-exports.createuserEmbarcacao = (req, res, next) => {
+exports.createUserEmbarcacao = (req, res, next) => {
   const userId = req.body.userId;
   const embarcacaoId = req.body.embarcacaoId;
   UserEmbarcacao.create({
@@ -45,7 +45,8 @@ exports.createuserEmbarcacao = (req, res, next) => {
 }
 
 //update userEmbarcacao
-exports.updateuserEmbarcacao = (req, res, next) => {
+exports.updateUserEmbarcacao = (req, res, next) => {
+  const userEmbarcacaoId = req.params.userEmbarcacaoId;
   const updateduserId = req.body.userId;
   const updatedembarcacaoId = req.body.embarcacaoId;
   UserEmbarcacao.findByPk(userEmbarcacaoId)
@@ -64,7 +65,7 @@ exports.updateuserEmbarcacao = (req, res, next) => {
 }
 
 //delete userEmbarcacao
-exports.deleteuserEmbarcacao = (req, res, next) => {
+exports.deleteUserEmbarcacao = (req, res, next) => {
   const userEmbarcacaoId = req.params.userEmbarcacaoId;
   UserEmbarcacao.findByPk(userEmbarcacaoId)
     .then(userEmbarcacao => {
@@ -73,7 +74,7 @@ exports.deleteuserEmbarcacao = (req, res, next) => {
       }
       return UserEmbarcacao.destroy({
         where: {
-          Id: userEmbarcacaoId
+          id: userEmbarcacaoId
         }
       });
     })

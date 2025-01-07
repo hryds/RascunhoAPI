@@ -51,7 +51,7 @@ exports.createEmbarcacao = (req, res, next) => {
 // update embarcação
 
 exports.updateEmbarcacao = (req, res, next) => {
-  const embarcacaoId = req.params.embarcacaoIdId;
+  const embarcacaoId = req.params.embarcacaoId;
   const updatedName = req.body.name;
   const updatedRgp = req.body.rgp;
   const updatedUf = req.body.uf;

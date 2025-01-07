@@ -50,6 +50,8 @@ exports.createProducaoEmbarcacaoEspecie = (req, res, next) => {
 
 //update ProducaoEmbarcacaoEspecie
 exports.updateProducaoEmbarcacaoEspecie = (req, res, next) => {
+  const producaoEmbarcacaoEspecieId = req.params.producaoEmbarcacaoEspecieId;
+  console.log(producaoEmbarcacaoEspecieId);
   const updatedproducaoId = req.body.producaoId;
   const updatedespecieId = req.body.especieId;
   const updatedembarcacaoId = req.body.embarcacaoId;
@@ -57,7 +59,7 @@ exports.updateProducaoEmbarcacaoEspecie = (req, res, next) => {
   ProducaoEmbarcacaoEspecie.findByPk(producaoEmbarcacaoEspecieId)
     .then(producaoEmbarcacaoEspecie => {
       if (!producaoEmbarcacaoEspecie) {
-        return res.status(404).json({ message: 'ProducaoEmbarcacaoEspecienot found!' });
+        return res.status(404).json({ message: 'ProducaoEmbarcacaoEspecie not found!' });
       }
       producaoEmbarcacaoEspecie.producaoId = updatedproducaoId;
       producaoEmbarcacaoEspecie.embarcacaoId = updatedembarcacaoId;
@@ -72,7 +74,7 @@ exports.updateProducaoEmbarcacaoEspecie = (req, res, next) => {
 }
 
 //delete producaoEmbarcacaoEspecie 
-exports.deleteproducaoEmbarcacaoEspecie = (req, res, next) => {
+exports.deleteProducaoEmbarcacaoEspecie = (req, res, next) => {
   const producaoEmbarcacaoEspecieId = req.params.producaoEmbarcacaoEspecieId;
   ProducaoEmbarcacaoEspecie.findByPk(producaoEmbarcacaoEspecieId)
     .then(producaoEmbarcacaoEspecie => {
@@ -81,7 +83,7 @@ exports.deleteproducaoEmbarcacaoEspecie = (req, res, next) => {
       }
       return ProducaoEmbarcacaoEspecie.destroy({
         where: {
-          Id: producaoEmbarcacaoEspecieId
+          id: producaoEmbarcacaoEspecieId
         }
       });
     })

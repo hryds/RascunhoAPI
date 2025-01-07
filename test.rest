@@ -1,13 +1,12 @@
 ### Localhost
-
 ###
 GET http://localhost:3000/
 
 ### Usuários
-###
+### getUsers
 GET http://localhost:3000/users
 
-### 
+### createUSer
 POST http://localhost:3000/users
 Content-Type: application/json
 
@@ -23,35 +22,86 @@ Content-Type: application/json
 
 }
 
-###
-GET http://localhost:3000/users/20
+### createUSer
+POST http://localhost:3000/users
+Content-Type: application/json
 
+{
+    "name": "Empresa 1",
+    "email": "empresa1@email.com",
+    "cnpj": "99.187.675/0601-83", 
+    "tipo": "Comum",
+    "status": "Pendente",
+    "rgp": "AA12696890",
+    "cep": "72000000",
+    "uf": "DF"
 
-###
-DELETE http://localhost:3000/users/16
+}
+
+### getUser
+GET http://localhost:3000/users/5
+
+### updateUser
+PUT http://localhost:3000/users/5
+Content-Type: application/json
+
+{
+    "name": "Empresa 6",
+    "email": "empresa1@email.com",
+    "cnpj": "99.177.675/0601-43", 
+    "tipo": "Comum",
+    "status": "Pendente",
+    "rgp": "AA12696691",
+    "cep": "72000000",
+    "uf": "AM"
+
+}
+
+### deleteUSer
+DELETE http://localhost:3000/users/5
 
 
 ### Embarcações
-###
+### getEmbarcacoes
 GET http://localhost:3000/embarcacoes
 
-### 
+### getEmbarcacao
+GET http://localhost:3000/embarcacoes/1
+
+
+### createEmbarcacao
 POST http://localhost:3000/embarcacoes
+Content-Type: application/json
+
+{
+    "name": "Barquinho II",
+    "rgp": "MA123567950",
+    "uf": "CE"
+
+}
+
+### updateEmbarcacao
+PUT http://localhost:3000/embarcacoes/1
 Content-Type: application/json
 
 {
     "name": "Barquinho",
     "rgp": "MA123467950",
-    "uf": "CE"
+    "uf": "MA"
 
 }
 
+### deleteEmbarcacao
+DELETE http://localhost:3000/embarcacoes/2
+
 ### Espécies
-###
+### getEspecies
 GET http://localhost:3000/especies
 
+### getEspecie
+GET http://localhost:3000/especies/1
 
-### 
+### createEspecie
 POST http://localhost:3000/especies
 Content-Type: application/json
 
@@ -61,7 +111,7 @@ Content-Type: application/json
 
 }
 
-### 
+### createEspecie
 POST http://localhost:3000/especies
 Content-Type: application/json
 
@@ -71,23 +121,35 @@ Content-Type: application/json
 
 }
 
+### updateEspecie
+PUT http://localhost:3000/especies/2
+Content-Type: application/json
+
+{
+    "nomeComum": "Bonito listrado",
+    "nomeCientifico": "Katsuwonus Pelamis "
+
+}
+
+### deleteEspecie 
+DELETE http://localhost:3000/especies/2
 
 ### Mapas de Produção
-###
+### getProducoes
 GET http://localhost:3000/producoes
 
 
-### 
+### createProducao
 POST http://localhost:3000/producoes
 Content-Type: application/json
 
 {
   "dataInicial": "2024-06-05",
-  "dataFinal": "2024-05-05",
+  "dataFinal": "2024-04-05",
   "userId": "1"
 }
 
-### 
+### createProducao
 POST http://localhost:3000/producoes
 Content-Type: application/json
 
@@ -97,12 +159,24 @@ Content-Type: application/json
   "userId": "2"
 }
 
+### udpateProducao
+PUT http://localhost:3000/producoes/2
+Content-Type: application/json
+
+{
+  "dataInicial": "2024-06-04",
+  "dataFinal": "2024-05-07",
+  "userId": "1"
+}
+
+### deleteProducao
+DELETE http://localhost:3000/producoes/2
 
 ### UserEmbarcacao
-###
+### getuserEmbarcacoes
 GET http://localhost:3000/userEmbarcacoes
 
-### 
+### createuserEmbarcacao 
 POST http://localhost:3000/userEmbarcacoes
 Content-Type: application/json
 
@@ -111,18 +185,33 @@ Content-Type: application/json
   "embarcacaoId": 1
 }
 
+### getUserEmbarcacao
+GET http://localhost:3000/userEmbarcacoes/1
+
+### updateuserEmbarcacao
+PUT http://localhost:3000/userEmbarcacoes/1
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "embarcacaoId": 3
+}
+
+### deleteuserEmbarcacao
+DELETE http://localhost:3000/userEmbarcacoes/1
+
 ### ProducaoEmbarcacaoEspecie
-###
+### getProducaoEmbarcacaoEspecies
 GET http://localhost:3000/producaoEmbarcacaoEspecies
 
-### 
+### createProducaoEmbarcacaoEspecie
 POST http://localhost:3000/producaoEmbarcacaoEspecies
 Content-Type: application/json
 
 {
-  "producaoId": 3,
-  "embarcacaoId": 2,
-  "especieId": 2,
+  "producaoId": 1,
+  "embarcacaoId": 1,
+  "especieId": 1,
   "peso": 6.5
 }
 
@@ -134,8 +223,27 @@ Content-Type: application/json
   "producaoId": 7,
   "embarcacaoId": 2,
   "especieId": 1,
-  "peso": 6.5
+  "peso": 9.5
 }
 
-###
+### getProducaoEmbarcacaoEspecie
+GET http://localhost:3000/producaoEmbarcacaoEspecies/4
+
+### updateProducaoEmbarcacaoEspecie
+PUT http://localhost:3000/producaoEmbarcacaoEspecies/4
+Content-Type: application/json
+
+{
+  "producaoId": 1,
+  "embarcacaoId": 1,
+  "especieId": 1,
+  "peso": 8.5
+}
+
+### deleteProducaoEmbarcacaoEspecie
+DELETE http://localhost:3000/producaoEmbarcacaoEspecies/4
+
+
+### Consultas
+### 
 GET http://localhost:3000/consultas/1
