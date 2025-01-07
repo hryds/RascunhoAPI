@@ -12,12 +12,12 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-    "name": "Empresa 4",
+    "name": "Empresa 3",
     "email": "empresa1@email.com",
-    "cnpj": "99.187.975/0601-43", 
+    "cnpj": "99.187.675/0601-43", 
     "tipo": "Comum",
     "status": "Pendente",
-    "rgp": "AA12696678",
+    "rgp": "AA12696698",
     "cep": "72000000",
     "uf": "DF"
 
@@ -40,9 +40,9 @@ POST http://localhost:3000/embarcacoes
 Content-Type: application/json
 
 {
-    "name": "Barquinho I",
-    "rgp": "MA123469958",
-    "uf": "MA"
+    "name": "Barquinho",
+    "rgp": "MA123467950",
+    "uf": "CE"
 
 }
 
@@ -83,8 +83,8 @@ Content-Type: application/json
 
 {
   "dataInicial": "2024-06-05",
-  "dataFinal": "2025-05-05",
-  "userId": "2"
+  "dataFinal": "2024-05-05",
+  "userId": "1"
 }
 
 ### 
@@ -120,8 +120,8 @@ POST http://localhost:3000/producaoEmbarcacaoEspecies
 Content-Type: application/json
 
 {
-  "producaoId": 15,
-  "embarcacaoId": 3,
+  "producaoId": 3,
+  "embarcacaoId": 2,
   "especieId": 2,
   "peso": 6.5
 }
@@ -131,8 +131,11 @@ POST http://localhost:3000/producaoEmbarcacaoEspecies
 Content-Type: application/json
 
 {
-  "producaoId": 15,
-  "embarcacaoId": 1,
-  "especieId": 2,
+  "producaoId": 7,
+  "embarcacaoId": 2,
+  "especieId": 1,
   "peso": 6.5
 }
+
+###
+GET http://localhost:3000/consultas/1

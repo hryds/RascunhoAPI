@@ -19,16 +19,16 @@ const UserEmbarcacao = db.define('userEmbarcacao', {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-            model: 'users', // Nome da tabela de usuários
-            key: 'id', // Chave primária da tabela de usuários
+            model: 'users', 
+            key: 'id', 
         }
     },
     embarcacaoId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-            model: 'embarcacoes', // Nome da tabela de embarcações
-            key: 'id', // Chave primária da tabela de embarcações
+            model: 'embarcacoes', 
+            key: 'id', 
         }
     }
 },

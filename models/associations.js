@@ -72,3 +72,31 @@ Especie.belongsToMany(Embarcacao, {
   foreignKey: 'especieId',
   otherKey: 'embarcacaoId',
 });
+
+
+// Producao 
+Producao.hasMany(ProducaoEmbarcacaoEspecie, {
+  foreignKey: 'producaoId'
+});
+
+ProducaoEmbarcacaoEspecie.belongsTo(Producao, {
+  foreignKey: 'producaoId'
+});
+
+// Embarcacao
+Embarcacao.hasMany(ProducaoEmbarcacaoEspecie, {
+  foreignKey: 'embarcacaoId'
+});
+
+ProducaoEmbarcacaoEspecie.belongsTo(Embarcacao, {
+  foreignKey: 'embarcacaoId'
+});
+
+// Especie
+Especie.hasMany(ProducaoEmbarcacaoEspecie, {
+  foreignKey: 'especieId'
+});
+
+ProducaoEmbarcacaoEspecie.belongsTo(Especie, {
+  foreignKey: 'especieId'
+});

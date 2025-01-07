@@ -1,7 +1,7 @@
 const controller = require('../controllers/producoes');
 const router = require('express').Router();
 
-// CRUD Routes /users
+// CRUD Routes /producoes
 router.get('/', controller.getProducoes); // /producoes
 router.get('/:producaoId', controller.getProducao); // /producoes/:producaoId
 router.post('/', controller.createProducao); // /producoes

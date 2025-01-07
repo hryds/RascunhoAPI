@@ -33,6 +33,7 @@ app.use('/especies', require('./routes/especies'));
 app.use('/producoes', require('./routes/producoes'));
 app.use('/userEmbarcacoes', require('./routes/userEmbarcacao'));
 app.use('/ProducaoEmbarcacaoEspecies', require('./routes/producaoEmbarcacaoEspecie'));
+app.use('/consultas', require('./routes/consultas'));
 
 //error handling
 app.use(errorHandler);

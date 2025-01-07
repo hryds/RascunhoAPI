@@ -1,7 +1,7 @@
 const controller = require('../controllers/userEmbarcacao');
 const router = require('express').Router();
 
-// CRUD Routes /users
+// CRUD Routes /userEmbarcacoes
 router.get('/', controller.getUserEmbarcacoes); // /userEmbarcacoes
 router.get('/:userEmbarcacaoId', controller.getUserEmbarcacao); // /userEmbarcacao/:userEmbarcacaoId
 router.post('/', controller.createuserEmbarcacao); // /userEmbarcacao

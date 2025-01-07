@@ -1,7 +1,7 @@
 const controller = require('../controllers/especies');
 const router = require('express').Router();
 
-// CRUD Routes /users
+// CRUD Routes /especies
 router.get('/', controller.getEspecies); // /especies
 router.get('/:especieId', controller.getEspecie); // /especies/:especieId
 router.post('/', controller.createEspecie); // /especies
