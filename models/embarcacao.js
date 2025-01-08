@@ -8,7 +8,7 @@ const Embarcacao = db.define('embarcacao', {
         allowNull: false,
         primaryKey: true
     },
-    name: {
+    nome: {
         type: Sequelize.DataTypes.STRING,
         allowNull: false
     },

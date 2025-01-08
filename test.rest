@@ -11,7 +11,7 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-    "name": "Empresa 3",
+    "nome": "Empresa 3",
     "email": "empresa1@email.com",
     "cnpj": "99.187.675/0601-43", 
     "tipo": "Comum",
@@ -27,7 +27,7 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-    "name": "Empresa 1",
+    "nome": "Empresa 1",
     "email": "empresa1@email.com",
     "cnpj": "99.187.675/0601-83", 
     "tipo": "Comum",
@@ -46,7 +46,7 @@ PUT http://localhost:3000/users/5
 Content-Type: application/json
 
 {
-    "name": "Empresa 6",
+    "nome": "Empresa 6",
     "email": "empresa1@email.com",
     "cnpj": "99.177.675/0601-43", 
     "tipo": "Comum",
@@ -74,7 +74,7 @@ POST http://localhost:3000/embarcacoes
 Content-Type: application/json
 
 {
-    "name": "Barquinho II",
+    "nome": "Barquinho II",
     "rgp": "MA123567950",
     "uf": "CE"
 
@@ -85,7 +85,7 @@ PUT http://localhost:3000/embarcacoes/1
 Content-Type: application/json
 
 {
-    "name": "Barquinho",
+    "nome": "Barquinho",
     "rgp": "MA123467950",
     "uf": "MA"
 

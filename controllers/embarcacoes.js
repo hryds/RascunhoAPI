@@ -26,13 +26,12 @@ exports.getEmbarcacao = (req, res, next) => {
 }
 
 // create embarcacao
-
 exports.createEmbarcacao = (req, res, next) => {
-  const name = req.body.name;
+  const nome = req.body.nome;
   const rgp = req.body.rgp;
   const uf = req.body.uf;
   Embarcacao.create({
-    name: name,
+    nome: nome,
     rgp: rgp,
     uf: uf
   })
@@ -49,10 +48,9 @@ exports.createEmbarcacao = (req, res, next) => {
 }
 
 // update embarcação
-
 exports.updateEmbarcacao = (req, res, next) => {
   const embarcacaoId = req.params.embarcacaoId;
-  const updatedName = req.body.name;
+  const updatedNome = req.body.nome;
   const updatedRgp = req.body.rgp;
   const updatedUf = req.body.uf;
   Embarcacao.findByPk(embarcacaoId)
@@ -60,7 +58,7 @@ exports.updateEmbarcacao = (req, res, next) => {
       if (!embarcacao) {
         return res.status(404).json({ message: 'Embarcacao not found!' });
       }
-      embarcacao.name = updatedName;
+      embarcacao.nome = updatedNome;
       embarcacao.rgp = updatedRgp;
       embarcacao.uf = updatedUf;
       return embarcacao.save();
@@ -72,7 +70,6 @@ exports.updateEmbarcacao = (req, res, next) => {
 }
 
 // delete embarcacao
-
 exports.deleteEmbarcacao = (req, res, next) => {
   const embarcacaoId = req.params.embarcacaoId;
   Embarcacao.findByPk(embarcacaoId)

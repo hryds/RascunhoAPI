@@ -26,7 +26,7 @@ exports.getUser = (req, res, next) => {
 
 //create user
 exports.createUser = (req, res, next) => {
-  const name = req.body.name;
+  const nome = req.body.nome;
   const email = req.body.email;
   const cnpj = req.body.cnpj;
   const tipo = req.body.tipo;
@@ -36,7 +36,7 @@ exports.createUser = (req, res, next) => {
   const uf = req.body.uf;
 
   User.create({
-    name: name,
+    nome: nome,
     email: email,
     cnpj: cnpj,
     tipo: tipo,
@@ -61,7 +61,7 @@ exports.createUser = (req, res, next) => {
 //update user
 exports.updateUser = (req, res, next) => {
   const userId = req.params.userId;
-  const updatedName = req.body.name;
+  const updatedNome = req.body.nome;
   const updatedEmail = req.body.email;
   const updatedCnpj = req.body.cnpj;
   const updatedTipo = req.body.tipo;
@@ -75,7 +75,7 @@ exports.updateUser = (req, res, next) => {
       if (!user) {
         return res.status(404).json({ message: 'User not found!' });
       }
-      user.name = updatedName;
+      user.nome = updatedNome;
       user.email = updatedEmail;
       user.cnpj = updatedCnpj;
       user.tipo = updatedTipo;
