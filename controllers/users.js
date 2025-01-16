@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const bcrypt = require('bcrypt');
 
 // CRUD Controllers
 
@@ -25,8 +26,9 @@ exports.getUser = (req, res, next) => {
 }
 
 //create user
-exports.createUser = (req, res, next) => {
+exports.createUser = async (req, res, next) => {
   const nome = req.body.nome;
+  const password = req.body.password;
   const email = req.body.email;
   const cnpj = req.body.cnpj;
   const tipo = req.body.tipo;
@@ -34,9 +36,14 @@ exports.createUser = (req, res, next) => {
   const rgp = req.body.rgp;
   const cep = req.body.cep;
   const uf = req.body.uf;
+  
+  const saltRounds = 10;
+  const hashedPassword = await bcrypt.hash(password, saltRounds); 
+
 
   User.create({
     nome: nome,
+    password: hashedPassword,
     email: email,
     cnpj: cnpj,
     tipo: tipo,
@@ -62,6 +69,7 @@ exports.createUser = (req, res, next) => {
 exports.updateUser = (req, res, next) => {
   const userId = req.params.userId;
   const updatedNome = req.body.nome;
+  const updatedPassword = req.body.password;
   const updatedEmail = req.body.email;
   const updatedCnpj = req.body.cnpj;
   const updatedTipo = req.body.tipo;
@@ -76,6 +84,7 @@ exports.updateUser = (req, res, next) => {
         return res.status(404).json({ message: 'User not found!' });
       }
       user.nome = updatedNome;
+      user.password = updatedPassword;
       user.email = updatedEmail;
       user.cnpj = updatedCnpj;
       user.tipo = updatedTipo;

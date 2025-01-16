@@ -9,6 +9,7 @@ const errorHandler = require('./middlewares/errorHandler');
 const associations = require('./models/associations');
 const UserEmbarcacao = require('./models/userEmbarcacao');
 const ProducaoEmbarcacaoEspecie = require('./models/producaoEmbarcacaoEspecie');
+const bcrypt = require('bcrypt');
 
 const app = express();
 

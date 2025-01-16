@@ -13,6 +13,7 @@ Content-Type: application/json
 {
     "nome": "Empresa 3",
     "email": "empresa1@email.com",
+    "password": "123",
     "cnpj": "99.187.675/0601-43", 
     "tipo": "Comum",
     "status": "Pendente",
@@ -29,6 +30,7 @@ Content-Type: application/json
 {
     "nome": "Empresa 1",
     "email": "empresa1@email.com",
+    "password": "1234",
     "cnpj": "99.187.675/0601-83", 
     "tipo": "Comum",
     "status": "Pendente",
