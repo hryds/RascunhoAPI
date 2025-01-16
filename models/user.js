@@ -42,7 +42,7 @@ const User = db.define('user', {
         type: Sequelize.DataTypes.STRING,
         allowNull: false
     },
-    uf: {
+    complemento: {
         type: Sequelize.DataTypes.STRING,
         allowNull: false
     }

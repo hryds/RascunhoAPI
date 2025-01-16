@@ -19,7 +19,7 @@ Content-Type: application/json
     "status": "Pendente",
     "rgp": "AA12696698",
     "cep": "72000000",
-    "uf": "DF"
+    "complemento": "DF"
 
 }
 

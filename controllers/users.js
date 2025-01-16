@@ -35,35 +35,33 @@ exports.createUser = async (req, res, next) => {
   const status = req.body.status;
   const rgp = req.body.rgp;
   const cep = req.body.cep;
-  const uf = req.body.uf;
-  
-  const saltRounds = 10;
-  const hashedPassword = await bcrypt.hash(password, saltRounds); 
+  const complemento = req.body.complemento; 
+  try {
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds); 
 
-
-  User.create({
-    nome: nome,
-    password: hashedPassword,
-    email: email,
-    cnpj: cnpj,
-    tipo: tipo,
-    status: status,
-    rgp: rgp,
-    cep: cep,
-    uf: uf
-
-  })
-    .then(result => {
-      console.log('Created User');
-      res.status(201).json({
-        message: 'User created successfully!',
-        user: result
-      });
-    })
-    .catch(err => {
-      console.log(err);
+    const user = await User.create({
+      nome: nome,
+      password: hashedPassword,
+      email: email,
+      cnpj: cnpj,
+      tipo: tipo,
+      status: status,
+      rgp: rgp,
+      cep: cep,
+      complemento: complemento, 
     });
-}
+    
+    res.status(201).json({
+      message: 'User created successfully!',
+      user: user,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 
 //update user
 exports.updateUser = (req, res, next) => {
@@ -76,7 +74,7 @@ exports.updateUser = (req, res, next) => {
   const updatedStatus = req.body.status;
   const updatedRgp = req.body.rgp;
   const updatedCep = req.body.cep;
-  const updatedUf = req.body.uf;
+  const updatedComplemento = req.body.uf;
 
   User.findByPk(userId)
     .then(user => {
@@ -91,7 +89,7 @@ exports.updateUser = (req, res, next) => {
       user.status = updatedStatus;
       user.rgp = updatedRgp;
       user.cep = updatedCep;
-      user.uf = updatedUf;
+      user.complemento = updatedComplemento;
       return user.save();
     })
     .then(result => {
