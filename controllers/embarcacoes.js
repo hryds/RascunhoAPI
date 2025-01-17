@@ -9,7 +9,13 @@ exports.getEmbarcacoes = (req, res, next) => {
     .then(embarcacoes => {
       res.status(200).json({ embarcacoes: embarcacoes });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        message: 'Error',
+        error: err.message
+      });
+    });
 }
 
 // get embarcacao by id
@@ -22,7 +28,13 @@ exports.getEmbarcacao = (req, res, next) => {
       }
       res.status(200).json({ embarcacao: embarcacao });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        message: 'Error',
+        error: err.message
+      });
+    });
 }
 
 // create embarcacao
@@ -30,6 +42,7 @@ exports.createEmbarcacao = (req, res, next) => {
   const nome = req.body.nome;
   const rgp = req.body.rgp;
   const uf = req.body.uf;
+
   Embarcacao.create({
     nome: nome,
     rgp: rgp,
@@ -43,9 +56,23 @@ exports.createEmbarcacao = (req, res, next) => {
       });
     })
     .catch(err => {
-      console.log(err);
+      console.error(err);
+
+      // Erro - Violação de Chave Única
+      if (err.name === 'SequelizeUniqueConstraintError') {
+        return res.status(400).json({ message: 'Duplicate Entry' });
+      }
+
+      // Erro - Campo obrigatório
+      if (err.name === 'SequelizeValidationError') {
+        return res.status(400).json({ message: 'Validation Error', errors: err.errors });
+      }
+
+      // Erro - Outros
+      res.status(500).json({ message: 'An unexpected error occurred.', error: err });
     });
-}
+};
+
 
 // update embarcação
 exports.updateEmbarcacao = (req, res, next) => {
@@ -66,7 +93,22 @@ exports.updateEmbarcacao = (req, res, next) => {
     .then(result => {
       res.status(200).json({ message: 'Embarcacao updated!', embarcacao: result });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.error(err);
+
+      // Erro - Violação de Chave Única
+      if (err.name === 'SequelizeUniqueConstraintError') {
+        return res.status(400).json({ message: 'Duplicate Entry' });
+      }
+
+      // Erro - Campo obrigatório
+      if (err.name === 'SequelizeValidationError') {
+        return res.status(400).json({ message: 'Validation Error', errors: err.errors });
+      }
+
+      // Erro - Outros
+      res.status(500).json({ message: 'An unexpected error occurred.', error: err });
+    });
 }
 
 // delete embarcacao
@@ -85,6 +127,12 @@ exports.deleteEmbarcacao = (req, res, next) => {
     })
     .then(result => {
       res.status(200).json({ message: 'Embarcacao deleted!' });
-    })
-    .catch(err => console.log(err));
+    }).catch(err => {
+      console.error(err);
+      res.status(500).json({
+        message: 'Error',
+        error: err.message
+      });
+    });
+
 }

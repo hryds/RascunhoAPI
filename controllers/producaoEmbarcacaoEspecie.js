@@ -8,7 +8,13 @@ exports.getProducaoEmbarcacaoEspecies = (req, res, next) => {
     .then(producaoEmbarcacaoEspecie => {
       res.status(200).json({ producaoEmbarcacaoEspecie: producaoEmbarcacaoEspecie });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        message: 'Error',
+        error: err.message
+      });
+    });
 }
 
 //get producaoEmbarcacaoEspecie by Id
@@ -21,7 +27,13 @@ exports.getProducaoEmbarcacaoEspecie = (req, res, next) => {
       }
       res.status(200).json({ producaoEmbarcacaoEspecie: producaoEmbarcacaoEspecie });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        message: 'Error',
+        error: err.message
+      });
+    });
 }
 
 //create producaoEmbarcacaoEspecie
@@ -44,7 +56,20 @@ exports.createProducaoEmbarcacaoEspecie = (req, res, next) => {
       });
     })
     .catch(err => {
-      console.log(err);
+      console.error(err);
+
+      // Erro específico de violação de chave única
+      if (err.name === 'SequelizeUniqueConstraintError') {
+        return res.status(400).json({ message: 'Duplicate entry detected for RGP or other unique field.' });
+      }
+
+      // Erro de validação de campo obrigatório
+      if (err.name === 'SequelizeValidationError') {
+        return res.status(400).json({ message: 'Validation error: missing required fields.', errors: err.errors });
+      }
+
+      // Erro genérico
+      res.status(500).json({ message: 'An unexpected error occurred.', error: err });
     });
 }
 
@@ -70,7 +95,22 @@ exports.updateProducaoEmbarcacaoEspecie = (req, res, next) => {
     .then(result => {
       res.status(200).json({ message: ' producaoEmbarcacaoEspecie updated!', producaoEmbarcacaoEspecie: result });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.error(err);
+
+      // Erro específico de violação de chave única
+      if (err.name === 'SequelizeUniqueConstraintError') {
+        return res.status(400).json({ message: 'Duplicate entry detected for RGP or other unique field.' });
+      }
+
+      // Erro de validação de campo obrigatório
+      if (err.name === 'SequelizeValidationError') {
+        return res.status(400).json({ message: 'Validation error: missing required fields.', errors: err.errors });
+      }
+
+      // Erro genérico
+      res.status(500).json({ message: 'An unexpected error occurred.', error: err });
+    });
 }
 
 //delete producaoEmbarcacaoEspecie 
@@ -90,5 +130,11 @@ exports.deleteProducaoEmbarcacaoEspecie = (req, res, next) => {
     .then(result => {
       res.status(200).json({ message: 'producaoEmbarcacaoEspeciedeleted!' });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        message: 'Error',
+        error: err.message
+      });
+    });
 }

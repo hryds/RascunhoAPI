@@ -9,7 +9,13 @@ exports.getUsers = (req, res, next) => {
     .then(users => {
       res.status(200).json({ users: users });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        message: 'Error',
+        error: err.message
+      });
+    });
 }
 
 //get user by id
@@ -22,7 +28,13 @@ exports.getUser = (req, res, next) => {
       }
       res.status(200).json({ user: user });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        message: 'Error',
+        error: err.message
+      });
+    });
 }
 
 //create user
@@ -35,10 +47,10 @@ exports.createUser = async (req, res, next) => {
   const status = req.body.status;
   const rgp = req.body.rgp;
   const cep = req.body.cep;
-  const complemento = req.body.complemento; 
+  const complemento = req.body.complemento;
   try {
     const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds); 
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     const user = await User.create({
       nome: nome,
@@ -49,16 +61,27 @@ exports.createUser = async (req, res, next) => {
       status: status,
       rgp: rgp,
       cep: cep,
-      complemento: complemento, 
+      complemento: complemento,
     });
-    
+
     res.status(201).json({
       message: 'User created successfully!',
       user: user,
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Internal server error' });
+    // Erro específico de violação de chave única
+    if (err.name === 'SequelizeUniqueConstraintError') {
+      return res.status(400).json({ message: 'Duplicate entry detected for RGP or other unique field.' });
+    }
+
+    // Erro de validação de campo obrigatório
+    if (err.name === 'SequelizeValidationError') {
+      return res.status(400).json({ message: 'Validation error: missing required fields.', errors: err.errors });
+    }
+
+    // Erro genérico
+    res.status(500).json({ message: 'An unexpected error occurred.', error: err });
   }
 };
 
@@ -95,7 +118,22 @@ exports.updateUser = (req, res, next) => {
     .then(result => {
       res.status(200).json({ message: 'User updated!', user: result });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.error(err);
+
+      // Erro específico de violação de chave única
+      if (err.name === 'SequelizeUniqueConstraintError') {
+        return res.status(400).json({ message: 'Duplicate entry detected for RGP or other unique field.' });
+      }
+
+      // Erro de validação de campo obrigatório
+      if (err.name === 'SequelizeValidationError') {
+        return res.status(400).json({ message: 'Validation error: missing required fields.', errors: err.errors });
+      }
+
+      // Erro genérico
+      res.status(500).json({ message: 'An unexpected error occurred.', error: err });
+    });
 }
 
 //delete user
@@ -115,5 +153,11 @@ exports.deleteUser = (req, res, next) => {
     .then(result => {
       res.status(200).json({ message: 'User deleted!' });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        message: 'Error',
+        error: err.message
+      });
+    });
 }
