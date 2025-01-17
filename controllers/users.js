@@ -85,9 +85,8 @@ exports.createUser = async (req, res, next) => {
   }
 };
 
-
-//update user
-exports.updateUser = (req, res, next) => {
+// update user
+exports.updateUser = async (req, res, next) => {
   const userId = req.params.userId;
   const updatedNome = req.body.nome;
   const updatedPassword = req.body.password;
@@ -97,44 +96,49 @@ exports.updateUser = (req, res, next) => {
   const updatedStatus = req.body.status;
   const updatedRgp = req.body.rgp;
   const updatedCep = req.body.cep;
-  const updatedComplemento = req.body.uf;
+  const updatedComplemento = req.body.complemento;
 
-  User.findByPk(userId)
-    .then(user => {
-      if (!user) {
-        return res.status(404).json({ message: 'User not found!' });
-      }
-      user.nome = updatedNome;
-      user.password = updatedPassword;
-      user.email = updatedEmail;
-      user.cnpj = updatedCnpj;
-      user.tipo = updatedTipo;
-      user.status = updatedStatus;
-      user.rgp = updatedRgp;
-      user.cep = updatedCep;
-      user.complemento = updatedComplemento;
-      return user.save();
-    })
-    .then(result => {
-      res.status(200).json({ message: 'User updated!', user: result });
-    })
-    .catch(err => {
-      console.error(err);
+  try {
+    const user = await User.findByPk(userId);
 
-      // Erro específico de violação de chave única
-      if (err.name === 'SequelizeUniqueConstraintError') {
-        return res.status(400).json({ message: 'Duplicate entry detected for RGP or other unique field.' });
-      }
+    if (!user) {
+      return res.status(404).json({ message: 'User not found!' });
+    }
 
-      // Erro de validação de campo obrigatório
-      if (err.name === 'SequelizeValidationError') {
-        return res.status(400).json({ message: 'Validation error: missing required fields.', errors: err.errors });
-      }
+    user.nome = updatedNome;
+    user.email = updatedEmail;
+    user.cnpj = updatedCnpj;
+    user.tipo = updatedTipo;
+    user.status = updatedStatus;
+    user.rgp = updatedRgp;
+    user.cep = updatedCep;
+    user.complemento = updatedComplemento;
 
-      // Erro genérico
-      res.status(500).json({ message: 'An unexpected error occurred.', error: err });
-    });
-}
+    if (updatedPassword) {
+      const saltRounds = 10;
+      user.password = await bcrypt.hash(updatedPassword, saltRounds);
+    }
+
+    const result = await user.save();
+    res.status(200).json({ message: 'User updated!', user: result });
+  } catch (err) {
+    console.error(err);
+
+    // Erro específico de violação de chave única
+    if (err.name === 'SequelizeUniqueConstraintError') {
+      return res.status(400).json({ message: 'Duplicate entry detected for RGP or other unique field.' });
+    }
+
+    // Erro de validação de campo obrigatório
+    if (err.name === 'SequelizeValidationError') {
+      return res.status(400).json({ message: 'Validation error: missing required fields.', errors: err.errors });
+    }
+
+    // Erro genérico
+    res.status(500).json({ message: 'An unexpected error occurred.', error: err });
+  }
+};
+
 
 //delete user
 exports.deleteUser = (req, res, next) => {

@@ -41,22 +41,22 @@ Content-Type: application/json
 }
 
 ### getUser
-GET http://localhost:3000/users/2
+GET http://localhost:3000/users/1
 
 ### updateUser
-PUT http://localhost:3000/users/5
+PUT http://localhost:3000/users/1
 Content-Type: application/json
 
 {
     "nome": "Empresa 6",
     "email": "empresa1@email.com",
-    "cnpj": "99.177.675/0601-43", 
+    "password": "234",
+    "cnpj": "99.177.675/0601-44", 
     "tipo": "Comum",
     "status": "Pendente",
-    "rgp": "AA12696691",
-    "cep": "72000000",
-    "uf": "AM"
-
+    "complemento": "UF",
+    "rgp": "AA12696690",
+    "cep": "72000000"
 }
 
 ### deleteUSer
