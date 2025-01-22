@@ -11,16 +11,15 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-    "nome": "Empresa 3",
-    "email": "empresa1@email.com",
-    "password": "123",
-    "cnpj": "99.187.675/0601-43", 
+    "nome": "Empresa 5",
+    "email": "empresa4@email.com",
+    "password": "1223",
+    "cnpj": "09.189.675/0601-43", 
     "tipo": "Comum",
     "status": "Pendente",
-    "rgp": "AA12696698",
+    "rgp": "AA55296698",
     "cep": "72000000",
-    "complemento": "DF"
-
+    "complemento": "Rua ABC"
 }
 
 ### createUSer
@@ -71,14 +70,17 @@ GET http://localhost:3000/embarcacoes
 GET http://localhost:3000/embarcacoes/1
 
 
+### getEmbarcacaobyRGP
+GET http://localhost:3000/embarcacoes/rgp/MA12356995
+
+
 ### createEmbarcacao
 POST http://localhost:3000/embarcacoes
 Content-Type: application/json
 
 {
     "nome": "Barquinho II",
-    "rgp": "MA12356995",
-    "uf": "CE"
+    "rgp": "MA12356995"
 
 }
 
@@ -88,8 +90,7 @@ Content-Type: application/json
 
 {
     "nome": "Barquinho",
-    "rgp": "MA123467950",
-    "uf": "MA"
+    "rgp": "MA123467950"
 
 }
 

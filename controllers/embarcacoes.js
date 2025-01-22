@@ -37,16 +37,37 @@ exports.getEmbarcacao = (req, res, next) => {
     });
 }
 
+// get embarcacao by rgp
+exports.getEmbarcacaobyRGP = (req, res, next) => {
+  const embarcacaoRGP = req.params.embarcacaoRGP;
+  Embarcacao.findOne({
+    where: { rgp: embarcacaoRGP }  
+  })
+    .then(embarcacao => {
+      if (!embarcacao) {
+        return res.status(404).json({ message: 'Embarcação not found!' });
+      }
+      res.status(200).json({ embarcacao: embarcacao });
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        message: 'Error',
+        error: err.message
+      });
+    });
+}
+
+
+
 // create embarcacao
 exports.createEmbarcacao = (req, res, next) => {
   const nome = req.body.nome;
   const rgp = req.body.rgp;
-  const uf = req.body.uf;
 
   Embarcacao.create({
     nome: nome,
     rgp: rgp,
-    uf: uf
   })
     .then(result => {
       console.log('Created Embarcação');
@@ -79,7 +100,6 @@ exports.updateEmbarcacao = (req, res, next) => {
   const embarcacaoId = req.params.embarcacaoId;
   const updatedNome = req.body.nome;
   const updatedRgp = req.body.rgp;
-  const updatedUf = req.body.uf;
   Embarcacao.findByPk(embarcacaoId)
     .then(embarcacao => {
       if (!embarcacao) {
@@ -87,7 +107,6 @@ exports.updateEmbarcacao = (req, res, next) => {
       }
       embarcacao.nome = updatedNome;
       embarcacao.rgp = updatedRgp;
-      embarcacao.uf = updatedUf;
       return embarcacao.save();
     })
     .then(result => {

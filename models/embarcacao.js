@@ -16,10 +16,6 @@ const Embarcacao = db.define('embarcacao', {
         type: Sequelize.DataTypes.STRING,
         allowNull: false,
         unique: true
-    },
-    uf: {
-        type: Sequelize.DataTypes.STRING,
-        allowNull: false
     }
 },
     {
