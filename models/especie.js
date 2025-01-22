@@ -10,14 +10,15 @@ const Especie = db.define('especie', {
     },
     nomeComum: {
         type: Sequelize.STRING,
-        allowNull: false,
-        unique: true
+        allowNull: false
     },
     nomeCientifico: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true
     }
+}, {
+    timestamps: false 
 });
 
 module.exports = Especie;
