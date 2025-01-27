@@ -12,12 +12,12 @@ Content-Type: application/json
 
 {
     "nome": "Empresa 5",
-    "email": "empresa4@email.com",
-    "password": "1223",
-    "cnpj": "09.189.675/0601-43", 
+    "email": "empresa@auth.com",
+    "password": "123",
+    "cnpj": "99.189.675/0601-43", 
     "tipo": "Comum",
     "status": "Pendente",
-    "rgp": "AA55296698",
+    "rgp": "AA95296698",
     "cep": "72000000",
     "complemento": "Rua ABC"
 }
@@ -260,3 +260,15 @@ DELETE http://localhost:3000/producaoEmbarcacaoEspecies/4
 ### Consultas
 ### 
 GET http://localhost:3000/consultas/1
+
+
+
+### Autenticação
+###
+POST http://localhost:3000/auth
+Content-Type: application/json
+
+{
+  "email": "empresa@auth.com",
+  "password": "123"
+}

@@ -145,32 +145,26 @@ exports.updateUserStatus = async (req, res, next) => {
   const updatedStatus = req.body.status;
 
   try {
-    // Busca o usuário pelo ID
     const user = await User.findByPk(userId);
 
     if (!user) {
       return res.status(404).json({ message: 'User not found!' });
     }
 
-    // Verifica se o status foi enviado
     if (updatedStatus === undefined) {
       return res.status(400).json({ message: 'Status field is required.' });
     }
-
-    // Atualiza apenas o status do usuário
     user.status = updatedStatus;
 
-    const result = await user.save(); // Salva a alteração no banco
+    const result = await user.save(); 
     res.status(200).json({ message: 'User status updated!', user: result });
   } catch (err) {
     console.error(err);
 
-    // Tratamento de erros específicos
     if (err.name === 'SequelizeValidationError') {
       return res.status(400).json({ message: 'Validation error.', errors: err.errors });
     }
 
-    // Tratamento de erro genérico
     res.status(500).json({ message: 'An unexpected error occurred.', error: err });
   }
 };

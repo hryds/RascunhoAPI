@@ -40,6 +40,9 @@ app.use('/userEmbarcacoes', require('./routes/userEmbarcacao'));
 app.use('/ProducaoEmbarcacaoEspecies', require('./routes/producaoEmbarcacaoEspecie'));
 app.use('/consultas', require('./routes/consultas'));
 
+// auth routes
+app.use('/auth', require('./routes/auth'));
+
 //error handling
 app.use(errorHandler);
 
