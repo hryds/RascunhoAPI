@@ -48,6 +48,7 @@ exports.createUser = async (req, res, next) => {
   const rgp = req.body.rgp;
   const cep = req.body.cep;
   const complemento = req.body.complemento;
+  const refreshtoken = req.body.refreshtoken;
   try {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -62,6 +63,7 @@ exports.createUser = async (req, res, next) => {
       rgp: rgp,
       cep: cep,
       complemento: complemento,
+      refreshtoken: refreshtoken,
     });
 
     res.status(201).json({
@@ -97,6 +99,7 @@ exports.updateUser = async (req, res, next) => {
   const updatedRgp = req.body.rgp;
   const updatedCep = req.body.cep;
   const updatedComplemento = req.body.complemento;
+  const updatedrefreshtoken = req.body.refreshtoken;
 
   try {
     const user = await User.findByPk(userId);
@@ -113,6 +116,7 @@ exports.updateUser = async (req, res, next) => {
     user.rgp = updatedRgp;
     user.cep = updatedCep;
     user.complemento = updatedComplemento;
+    user.refreshtoken = updatedrefreshtoken;
 
     if (updatedPassword) {
       const saltRounds = 10;
@@ -156,7 +160,7 @@ exports.updateUserStatus = async (req, res, next) => {
     }
     user.status = updatedStatus;
 
-    const result = await user.save(); 
+    const result = await user.save();
     res.status(200).json({ message: 'User status updated!', user: result });
   } catch (err) {
     console.error(err);

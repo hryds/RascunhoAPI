@@ -10,6 +10,7 @@ const associations = require('./models/associations');
 const UserEmbarcacao = require('./models/userEmbarcacao');
 const ProducaoEmbarcacaoEspecie = require('./models/producaoEmbarcacaoEspecie');
 const bcrypt = require('bcrypt');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
@@ -17,19 +18,21 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false }));
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*'); 
-  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization'); 
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE, PATCH'); 
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE, PATCH');
   next();
 });
-
-
 
 
 //test route
 app.get('/', (req, res, next) => {
   res.send('Hello World');
 });
+
+
+// middleware - cookies
+app.use(cookieParser());
 
 //CRUD routes
 app.use('/users', require('./routes/users'));
@@ -42,6 +45,8 @@ app.use('/consultas', require('./routes/consultas'));
 
 // auth routes
 app.use('/auth', require('./routes/auth'));
+app.use('/refresh', require('./routes/refreshToken'));
+app.use('/logout', require('./routes/logout'));
 
 //error handling
 app.use(errorHandler);

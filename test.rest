@@ -70,6 +70,8 @@ Content-Type: application/json
 
 ### deleteUSer
 DELETE http://localhost:3000/users/5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtcHJlc2FAYXV0aC5jb20iLCJpYXQiOjE3MzgwNjY0MTgsImV4cCI6MTczODA2NjQ0OH0.2BGjeJdElh0qxBi5CR2Erq7XbfM8s7Psk7Zjau3-gJU
+
 
 
 ### Embarcações
@@ -272,3 +274,11 @@ Content-Type: application/json
   "email": "empresa@auth.com",
   "password": "123"
 }
+
+###
+GET http://localhost:3000/refresh
+Cookie: jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtcHJlc2FAYXV0aC5jb20iLCJpYXQiOjE3MzgwNjk3NTMsImV4cCI6MTczODY3NDU1M30.d-_uwKbQmUA3qgsdlaMqO4TGoSc4858UDMVk6BC7ja0
+
+###
+GET http://localhost:3000/logout
+Cookie: jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtcHJlc2FAYXV0aC5jb20iLCJpYXQiOjE3MzgwNjkzODMsImV4cCI6MTczODY3NDE4M30.pWJSrRhBxr0TBFV-0sV_VkdYmr7wTcMuMeYo_kzlljQ

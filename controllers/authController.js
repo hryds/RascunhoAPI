@@ -1,5 +1,7 @@
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const handleLogin = async (req, res) => {
     const { email, password } = req.body;
@@ -17,8 +19,26 @@ const handleLogin = async (req, res) => {
 
         const match = await bcrypt.compare(password, foundUser.password);
         if (match) {
-            // Criar JWT 
-            res.json({ success: `User ${email} is logged in!` });
+            const accessToken = jwt.sign(
+                { email: foundUser.email },
+                process.env.ACCESS_TOKEN_SECRET,
+                { expiresIn: '15m' }
+            );
+
+            const refreshToken = jwt.sign(
+                { email: foundUser.email },
+                process.env.REFRESH_TOKEN_SECRET,
+                { expiresIn: '7d' }
+            );
+            foundUser.refreshtoken = refreshToken;
+            await foundUser.save();
+
+            res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 });
+            res.json({
+                success: `User ${email} is logged in!`,
+                accessToken,
+                refreshToken, // 
+            });
         } else {
             res.status(401).json({ message: 'Unauthorized: Incorrect password.' });
         }

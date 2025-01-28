@@ -12,7 +12,7 @@ const User = db.define('user', {
         type: Sequelize.DataTypes.STRING,
         allowNull: false
     },
-    password:{
+    password: {
         type: Sequelize.DataTypes.STRING,
         allowNull: false
     },
@@ -45,7 +45,8 @@ const User = db.define('user', {
     complemento: {
         type: Sequelize.DataTypes.STRING,
         allowNull: false
-    }
+    },
+    refreshtoken: Sequelize.TEXT
 });
 
 module.exports = User;
