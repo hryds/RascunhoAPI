@@ -74,16 +74,20 @@ exports.createUser = async (req, res, next) => {
     console.error(err);
     // Erro específico de violação de chave única
     if (err.name === 'SequelizeUniqueConstraintError') {
-      return res.status(400).json({ message: 'Duplicate entry detected for RGP or other unique field.' });
+      const duplicatedFields = err.errors.map(error => error.path); 
+      return res.status(400).json({
+        message: `${duplicatedFields.join(', ')} já cadastrado.`,
+        fields: duplicatedFields
+      });
     }
 
     // Erro de validação de campo obrigatório
     if (err.name === 'SequelizeValidationError') {
-      return res.status(400).json({ message: 'Validation error: missing required fields.', errors: err.errors });
+      return res.status(400).json({ message: 'Erro de validação: é necessário preencher todos os campos obrigatórios', errors: err.errors });
     }
 
     // Erro genérico
-    res.status(500).json({ message: 'An unexpected error occurred.', error: err });
+    res.status(500).json({ message: 'Um erro inesperado ocorreu, tente novamente..', error: err });
   }
 };
 

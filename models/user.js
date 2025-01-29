@@ -18,7 +18,8 @@ const User = db.define('user', {
     },
     email: {
         type: Sequelize.DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     cnpj: {
         type: Sequelize.DataTypes.STRING,

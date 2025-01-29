@@ -18,11 +18,13 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false }));
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173'); // Altere para o URL do seu frontend
+  res.setHeader('Access-Control-Allow-Credentials', 'true'); // Permite envio de cookies e credenciais
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE, PATCH');
   next();
 });
+
 
 
 //test route
