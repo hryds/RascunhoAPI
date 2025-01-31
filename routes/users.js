@@ -3,11 +3,11 @@ const router = require('express').Router();
 const verifyJWT = require('../middlewares/verifyJWT')
 
 // CRUD Routes /users
-router.get('/', controller.getUsers); // /users
-router.patch('/updatestatus/:userId', controller.updateUserStatus)
-router.get('/:userId', controller.getUser); // /users/:userId
+router.get('/', verifyJWT, controller.getUsers); // /users
+router.patch('/updatestatus/:userId', verifyJWT, controller.updateUserStatus)
+router.get('/:userId', verifyJWT, controller.getUser); // /users/:userId
 router.post('/', controller.createUser); // /users
-router.put('/:userId', controller.updateUser); // /users/:userId
+router.put('/:userId', verifyJWT, controller.updateUser); // /users/:userId
 router.delete('/:userId', verifyJWT, controller.deleteUser); // /users/:userId
 
 module.exports = router;

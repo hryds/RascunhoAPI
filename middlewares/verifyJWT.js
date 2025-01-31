@@ -6,6 +6,8 @@ const verifyJWT = (req, res, next) => {
     if (!authHeader) return res.sendStatus(401);
     console.log(authHeader);
     const token = authHeader.split(' ')[1];
+    console.log(token);
+    console.log(process.env.ACCESS_TOKEN_SECRET);
     jwt.verify(
         token,
         process.env.ACCESS_TOKEN_SECRET,
