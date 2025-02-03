@@ -8,6 +8,7 @@ router.patch('/updatestatus/:userId', verifyJWT, controller.updateUserStatus)
 router.get('/:userId', verifyJWT, controller.getUser); // /users/:userId
 router.post('/', controller.createUser); // /users
 router.put('/:userId', verifyJWT, controller.updateUser); // /users/:userId
+router.patch('/:userId', verifyJWT, controller.updateUserStatusNoPassword); // /users/:userId
 router.delete('/:userId', verifyJWT, controller.deleteUser); // /users/:userId
 
 module.exports = router;

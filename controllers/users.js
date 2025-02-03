@@ -74,7 +74,7 @@ exports.createUser = async (req, res, next) => {
     console.error(err);
     // Erro específico de violação de chave única
     if (err.name === 'SequelizeUniqueConstraintError') {
-      const duplicatedFields = err.errors.map(error => error.path); 
+      const duplicatedFields = err.errors.map(error => error.path);
       return res.status(400).json({
         message: `${duplicatedFields.join(', ')} já cadastrado.`,
         fields: duplicatedFields
@@ -146,6 +146,54 @@ exports.updateUser = async (req, res, next) => {
     res.status(500).json({ message: 'An unexpected error occurred.', error: err });
   }
 };
+
+
+exports.updateUserStatusNoPassword = async (req, res, next) => {
+  const userId = req.params.userId;
+  const updatedNome = req.body.nome;
+  const updatedEmail = req.body.email;
+  const updatedCnpj = req.body.cnpj;
+  const updatedRgp = req.body.rgp;
+  const updatedCep = req.body.cep;
+  const updatedComplemento = req.body.complemento;
+
+  try {
+    const user = await User.findByPk(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found!' });
+    }
+
+    user.nome = updatedNome;
+    user.email = updatedEmail;
+    user.cnpj = updatedCnpj;
+    user.rgp = updatedRgp;
+    user.cep = updatedCep;
+    user.complemento = updatedComplemento;
+
+    const result = await user.save();
+    res.status(200).json({ message: 'User  info updated!', user: result });
+  } catch (err) {
+    console.error(err);
+    // Erro específico de violação de chave única
+    if (err.name === 'SequelizeUniqueConstraintError') {
+      const duplicatedFields = err.errors.map(error => error.path);
+      return res.status(400).json({
+        message: `${duplicatedFields.join(', ')} já cadastrado.`,
+        fields: duplicatedFields
+      });
+    }
+
+    // Erro de validação de campo obrigatório
+    if (err.name === 'SequelizeValidationError') {
+      return res.status(400).json({ message: 'Erro de validação: é necessário preencher todos os campos obrigatórios', errors: err.errors });
+    }
+
+    // Erro genérico
+    res.status(500).json({ message: 'Um erro inesperado ocorreu, tente novamente..', error: err });
+  }
+};
+
 
 // update userStatus
 exports.updateUserStatus = async (req, res, next) => {
