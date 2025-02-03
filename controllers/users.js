@@ -225,6 +225,35 @@ exports.updateUserStatus = async (req, res, next) => {
   }
 };
 
+exports.updateUserType = async (req, res, next) => {
+  const userId = req.params.userId;
+  const updatedTipo = req.body.tipo;
+
+  try {
+    const user = await User.findByPk(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found!' });
+    }
+
+    if (updatedTipo === undefined) {
+      return res.status(400).json({ message: 'Tipo field is required.' });
+    }
+    user.tipo = updatedTipo;
+
+    const result = await user.save();
+    res.status(200).json({ message: 'User status updated!', user: result });
+  } catch (err) {
+    console.error(err);
+
+    if (err.name === 'SequelizeValidationError') {
+      return res.status(400).json({ message: 'Validation error.', errors: err.errors });
+    }
+
+    res.status(500).json({ message: 'An unexpected error occurred.', error: err });
+  }
+};
+
 
 //delete user
 exports.deleteUser = (req, res, next) => {
