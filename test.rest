@@ -282,3 +282,9 @@ Cookie: jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtcHJlc2FAYXV0aC5
 ###
 GET http://localhost:3000/logout
 Cookie: jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtcHJlc2FAYXV0aC5jb20iLCJpYXQiOjE3MzgwNjkzODMsImV4cCI6MTczODY3NDE4M30.pWJSrRhBxr0TBFV-0sV_VkdYmr7wTcMuMeYo_kzlljQ
+
+
+### Autenticação
+###
+GET http://localhost:3000/auth
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtcHJlc2FAYXV0aC5jb20iLCJpYXQiOjE3MzgwNjY0MTgsImV4cCI6MTczODA2NjQ0OH0.2BGjeJdElh0qxBi5CR2Erq7XbfM8s7Psk7Zjau3-gJU
