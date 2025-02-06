@@ -148,7 +148,7 @@ exports.updateUser = async (req, res, next) => {
 };
 
 
-exports.updateUserStatusNoPassword = async (req, res, next) => {
+exports.updateUserNoPassword = async (req, res, next) => {
   const userId = req.params.userId;
   const updatedNome = req.body.nome;
   const updatedEmail = req.body.email;
