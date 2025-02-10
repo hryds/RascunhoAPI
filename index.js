@@ -44,6 +44,7 @@ app.use('/producoes', require('./routes/producoes'));
 app.use('/userEmbarcacoes', require('./routes/userEmbarcacao'));
 app.use('/ProducaoEmbarcacaoEspecies', require('./routes/producaoEmbarcacaoEspecie'));
 app.use('/consultas', require('./routes/consultas'));
+app.use('/upload', require('./routes/fileUpload') );
 
 // auth routes
 app.use('/auth', require('./routes/auth'));

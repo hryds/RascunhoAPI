@@ -33,7 +33,6 @@ const userSchemeNoPassword = Joi.object({
     nome: Joi.string().min(1).required(),
     email: Joi.string().email().required(),
     cnpj: Joi.string().min(14).required(),
-    status: Joi.string().valid('aprovado', 'pendente', 'rejeitado').required(),
     rgp: Joi.string().min(10).required(),
     cep: Joi.string().min(8).required(),
     complemento: Joi.string().min(1).required(),
@@ -102,8 +101,9 @@ const producaoEmbarcacaoEspecieScheme = Joi.object({
     producaoId: Joi.number().integer().required(),
     embarcacaoId: Joi.number().integer().required(),
     especieId: Joi.number().integer().required(),
-    peso: Joi.number().required().messages({
+    peso: Joi.number().min(0).required().messages({
         'number.base': 'Peso: insira apenas caracteres numéricos',
+        'number.min': 'Peso: valor inválido',
     }),
 });
 

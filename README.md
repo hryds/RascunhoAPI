@@ -6,6 +6,7 @@
 * `sudo docker exec -it node_db psql -U db_user -d producao_rascunho_db`
 * `sudo docker cp data/especiesScript.sql node_db:/tmp/`
 * `sudo docker exec -it node_db psql -U db_user -d producao_rascunho_db -f /tmp/especiesScript.sql`
+* `docker exec -it my-node_app /bin/bash`
 
 
 ### Constraints
