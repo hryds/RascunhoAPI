@@ -15,9 +15,32 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({ storage });
 
-router.post('/', verifyJWT, upload.single("file"), (req, res, next) => {
+const allowedMimeTypes = [
+    'application/pdf', // PDF
+    'application/msword', // DOC
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // DOCX
+    'image/png', // PNG
+    'application/vnd.oasis.opendocument.text', // ODT
+    'image/jpeg', // JPG
+    'application/xml', // XML
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // XLSX
+];
+
+const upload = multer({
+    storage,
+    limits: { fileSize: 2 * 1024 * 1024 }, // 2MB limit
+    fileFilter: (req, file, cb) => {
+        if (allowedMimeTypes.includes(file.mimetype)) {
+            cb(null, true); 
+        } else {
+            cb(new Error('Invalid file type. Only PDF, DOC, DOCX, PNG, ODT, JPG, XML, and XLSX are allowed.'), false); 
+        }
+    }
+});
+
+
+router.post('/',verifyJWT, upload.single("file"), (req, res, next) => {
     console.log(req.body.producaoId);
     next();
 }, uploadFile);
