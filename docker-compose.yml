@@ -7,11 +7,8 @@ services:
     image: my-node_app
     ports:
       - "3000:3000"
-    environment:
-      - PG_DB=producao_rascunho_db
-      - PG_USER=db_user
-      - PG_PASSWORD=12345
-      - PG_HOST=node_db
+    env_file:
+      - .env 
     restart: always
     depends_on:
       - node_db
@@ -23,10 +20,8 @@ services:
     image: postgres:12
     ports:
       - "5432:5432"
-    environment:
-      - POSTGRES_DB=producao_rascunho_db
-      - POSTGRES_USER=db_user
-      - POSTGRES_PASSWORD=12345
+    env_file:
+      - .env  
     volumes:
       - node_db_data:/var/lib/postgresql/data
 

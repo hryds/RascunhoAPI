@@ -22,3 +22,6 @@ INSERT INTO especies ("nomeCientifico", "nomeComum") VALUES
 ('Isurus oxyrinchus' ,'Mako/ Anequim') ,
 ('Alopias superciliosus' ,'Tubarão raposa') ,
 ('Coryphaena hippurus' ,'Dourado');
+
+ALTER TABLE "producaoEmbarcacaoEspecies" DROP CONSTRAINT "producaoEmbarcacaoEspecies_embarcacaoId_especieId_key";
+ALTER TABLE "producaoEmbarcacaoEspecies" DROP CONSTRAINT "producaoEmbarcacaoEspecies_producaoId_key";
