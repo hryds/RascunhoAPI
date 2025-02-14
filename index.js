@@ -11,6 +11,7 @@ const UserEmbarcacao = require('./models/userEmbarcacao');
 const ProducaoEmbarcacaoEspecie = require('./models/producaoEmbarcacaoEspecie');
 const bcrypt = require('bcrypt');
 const cookieParser = require('cookie-parser');
+require('dotenv').config();
 
 const app = express();
 
@@ -18,8 +19,9 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false }));
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173'); // Altere para o URL do seu frontend
-  res.setHeader('Access-Control-Allow-Credentials', 'true'); // Permite envio de cookies e credenciais
+  const allowedOrigin = process.env.CORS_ORIGIN;
+  res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE, PATCH');
   next();
@@ -44,7 +46,7 @@ app.use('/producoes', require('./routes/producoes'));
 app.use('/userEmbarcacoes', require('./routes/userEmbarcacao'));
 app.use('/ProducaoEmbarcacaoEspecies', require('./routes/producaoEmbarcacaoEspecie'));
 app.use('/consultas', require('./routes/consultas'));
-app.use('/upload', require('./routes/fileUpload') );
+app.use('/upload', require('./routes/fileUpload'));
 
 // auth routes
 app.use('/auth', require('./routes/auth'));

@@ -3,23 +3,23 @@
 GET http://localhost:3000/
 
 ### Usuários
-### getUsers
+### getUsersz
 GET http://localhost:3000/users
 
 ### createUSer
-POST http://localhost:3000/users
+POST https://rascunhoapi.onrender.com/users
 Content-Type: application/json
 
 {
-    "nome": "Empresa 5",
-    "email": "empresa@auth.com",
-    "password": "123",
-    "cnpj": "99.189.675/0601-43", 
-    "tipo": "Comum",
-    "status": "Pendente",
-    "rgp": "AA95296698",
+    "nome": "Admin",
+    "email": "admin@admin.com",
+    "password": "123456",
+    "cnpj": "99999999999999", 
+    "tipo": "admin",
+    "status": "aprovado",
+    "rgp": "ZZ99999999",
     "cep": "72000000",
-    "complemento": "Rua ABC"
+    "complemento": "admin"
 }
 
 ### createUSer
@@ -112,7 +112,8 @@ DELETE http://localhost:3000/embarcacoes/2
 
 ### Espécies
 ### getEspecies
-GET http://localhost:3000/especies
+GET https://rascunhoapi.onrender.com/especies
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTczOTUzOTU0MCwiZXhwIjoxNzM5NTgyNzQwfQ.qmV1RPcK77QfQi_XOUFENVpCUwd84k2FF4sP27BRkCQ
 
 ### getEspecie
 GET http://localhost:3000/especies/1
@@ -269,12 +270,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtcHJlc
 
 ### Autenticação
 ###
-POST http://localhost:3000/auth
+POST https://rascunhoapi.onrender.com/auth
 Content-Type: application/json
 
 {
-  "email": "empresa@auth.com",
-  "password": "123"
+  "email": "admin@admin.com",
+  "password": "123456"
 }
 
 ###
