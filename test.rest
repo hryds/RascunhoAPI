@@ -28,12 +28,12 @@ Content-Type: application/json
 
 {
     "nome": "Empresa X",
-    "email": "empresaX@email.com",
-    "password": "12345",
-    "cnpj": "99.187.644/0601-83", 
-    "tipo": "Comum",
-    "status": "Pendente",
-    "rgp": "AA12612390",
+    "email": "prodrimail@gmail.com",
+    "password": "123456",
+    "cnpj": "93.187.644/0601-83", 
+    "tipo": "admin",
+    "status": "pendente",
+    "rgp": "AB12612390",
     "cep": "72000000",
     "complemento": "DF"
 
@@ -291,3 +291,20 @@ Cookie: jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtcHJlc2FAYXV0aC5
 ###
 GET http://localhost:3000/auth
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtcHJlc2FAYXV0aC5jb20iLCJpYXQiOjE3MzgwNjY0MTgsImV4cCI6MTczODA2NjQ0OH0.2BGjeJdElh0qxBi5CR2Erq7XbfM8s7Psk7Zjau3-gJU
+
+
+###
+POST http://localhost:3000/users/reset-password
+Content-Type: application/json
+
+{
+    "email": "email@gmail.com"
+}
+
+###
+PATCH  http://localhost:3000/users/updatepassword/61
+Content-Type: application/json
+
+{
+    "password": "123456"
+}

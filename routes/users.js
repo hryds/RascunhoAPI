@@ -19,5 +19,9 @@ router.post('/', validateUser, controller.createUser); // /users
 router.put('/:userId', verifyJWT, validateUser, controller.updateUser); // /users/:userId
 router.patch('/:userId', verifyJWT, validateUserNoPassWord, controller.updateUserNoPassword); // /users/:userId
 router.delete('/:userId', verifyJWT, controller.deleteUser); // /users/:userId
+router.patch('/updatepassword/:userId', controller.updateUserPassword); // /users/reset-password
+
+
+router.post('/reset-password', controller.resetPassword);
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
+const { sendWelcomeEmail, sendPasswordResetEmail } = require('../utils/mailer');
 
 // CRUD Controllers
 
@@ -254,6 +255,35 @@ exports.updateUserType = async (req, res, next) => {
   }
 };
 
+// update password
+exports.updateUserPassword = async (req, res, next) => {
+  const userId = req.params.userId;
+  const updatedPassword = req.body.password;
+
+  try {
+    const user = await User.findByPk(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found!' });
+    }
+    
+    if (updatedPassword) {
+      const saltRounds = 10;
+      user.password = await bcrypt.hash(updatedPassword, saltRounds);
+    }
+
+    const result = await user.save();
+    res.status(200).json({ message: 'User password updated!', user: result });
+  } catch (err) {
+    console.error(err);
+
+    if (err.name === 'SequelizeValidationError') {
+      return res.status(400).json({ message: 'Validation error.', errors: err.errors });
+    }
+
+    res.status(500).json({ message: 'An unexpected error occurred.', error: err });
+  }
+};
 
 //delete user
 exports.deleteUser = (req, res, next) => {
@@ -280,3 +310,27 @@ exports.deleteUser = (req, res, next) => {
       });
     });
 }
+
+
+
+exports.resetPassword = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+      const user = await User.findOne({ where: { email } });
+      if (!user) {
+          return res.status(404).json({ message: 'Usuário não encontrado.' });
+      }
+      const tempPassword = Math.random().toString(36).slice(-8);
+      const hashedPassword = await bcrypt.hash(tempPassword, 10);
+
+      user.password = hashedPassword;
+      await user.save();
+      await sendPasswordResetEmail(email, tempPassword);
+
+      res.status(200).json({ message: 'Senha temporária enviada para o seu e-mail.' });
+  } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Erro ao processar recuperação de senha.' });
+  }
+};
