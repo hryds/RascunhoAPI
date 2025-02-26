@@ -22,7 +22,7 @@ const sendWelcomeEmail = async (toEmail, userName) => {
 
 const sendPasswordResetEmail = async (toEmail, tempPassword) => {
     const mailOptions = {
-        from: process.env.EMAIL_USER,
+        from: `"Mapa de Produção Atuns e Afins" <${process.env.EMAIL_USER}>`,
         to: toEmail,
         subject: 'Recuperação de Senha - Mapa de Produção Atuns e Afins',
         html: `
@@ -31,6 +31,7 @@ const sendPasswordResetEmail = async (toEmail, tempPassword) => {
             <p>Sua nova senha temporária é: <strong style="color:rgb(0, 0, 0);">${tempPassword}</strong></p>
             <p>Utilize a senha temporária para fazer login em sua conta e crie uma nova senha na aba <strong>"Gerenciamento de Conta"</strong>.</p>
             <p><strong style="color:rgb(255, 0, 0);">Importante</strong>: para manter a segurança da sua conta, altere sua senha o mais breve possível.</p>
+            <img src="https://pesqbrasil-pescadorprofissional.agro.gov.br/assets/logo-ministerio-pesca.png" alt="Assinatura" style="width: 200px; height: auto;">
         </div>
     `
     };

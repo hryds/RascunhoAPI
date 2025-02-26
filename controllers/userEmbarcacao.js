@@ -11,7 +11,7 @@ exports.getUserEmbarcacoes = (req, res, next) => {
     .catch(err => {
       console.error(err);
       res.status(500).json({
-        message: 'Error',
+        message: 'Erro',
         error: err.message
       });
     });
@@ -23,14 +23,14 @@ exports.getUserEmbarcacao = (req, res, next) => {
   UserEmbarcacao.findByPk(userEmbarcacaoId)
     .then(userEmbarcacao => {
       if (!userEmbarcacao) {
-        return res.status(404).json({ message: 'UserEmbarcacao not found!' });
+        return res.status(404).json({ message: 'UserEmbarcacao não encontrada.' });
       }
       res.status(200).json({ userEmbarcacao: userEmbarcacao });
     })
     .catch(err => {
       console.error(err);
       res.status(500).json({
-        message: 'Error',
+        message: 'Erro',
         error: err.message
       });
     });
@@ -45,27 +45,24 @@ exports.createUserEmbarcacao = (req, res, next) => {
     embarcacaoId: embarcacaoId
   })
     .then(result => {
-      console.log('Created UserEmbarcacao');
+      console.log('UserEmbarcacao criada.');
       res.status(201).json({
-        message: 'UserEmbarcacao created successfully!',
+        message: 'UserEmbarcacao criada.',
         userEmbarcacao: result
       });
     })
     .catch(err => {
       console.error(err);
 
-      // Erro específico de violação de chave única
       if (err.name === 'SequelizeUniqueConstraintError') {
-        return res.status(400).json({ message: 'Duplicate entry detected for RGP or other unique field.' });
+        return res.status(400).json({ message: 'Campo duplicado.' });
       }
 
-      // Erro de validação de campo obrigatório
       if (err.name === 'SequelizeValidationError') {
-        return res.status(400).json({ message: 'Validation error: missing required fields.', errors: err.errors });
+        return res.status(400).json({ message: 'Erro de validação: é necessário preencher todos os campos obrigatórios.', errors: err.errors });
       }
 
-      // Erro genérico
-      res.status(500).json({ message: 'An unexpected error occurred.', error: err });
+      res.status(500).json({ message: 'Um erro inesperado ocorreu, tente novamente.', error: err });
     });
 }
 
@@ -77,30 +74,27 @@ exports.updateUserEmbarcacao = (req, res, next) => {
   UserEmbarcacao.findByPk(userEmbarcacaoId)
     .then(userEmbarcacao => {
       if (!userEmbarcacao) {
-        return res.status(404).json({ message: 'UserEmbarcacao not found!' });
+        return res.status(404).json({ message: 'UserEmbarcacao não encontrada.' });
       }
       userEmbarcacao.userId = updateduserId;
       userEmbarcacao.embarcacaoId = updatedembarcacaoId;
       return userEmbarcacao.save();
     })
     .then(result => {
-      res.status(200).json({ message: 'UserEmbarcacao updated!', userEmbarcacao: result });
+      res.status(200).json({ message: 'UserEmbarcacao atualizada.', userEmbarcacao: result });
     })
     .catch(err => {
       console.error(err);
 
-      // Erro específico de violação de chave única
       if (err.name === 'SequelizeUniqueConstraintError') {
-        return res.status(400).json({ message: 'Duplicate entry detected for RGP or other unique field.' });
+        return res.status(400).json({ message: 'Campo duplicado.' });
       }
 
-      // Erro de validação de campo obrigatório
       if (err.name === 'SequelizeValidationError') {
-        return res.status(400).json({ message: 'Validation error: missing required fields.', errors: err.errors });
+        return res.status(400).json({ message: 'Erro de validação: é necessário preencher todos os campos obrigatórios.', errors: err.errors });
       }
 
-      // Erro genérico
-      res.status(500).json({ message: 'An unexpected error occurred.', error: err });
+      res.status(500).json({ message: 'Um erro inesperado ocorreu, tente novamente.', error: err });
     });
 }
 
@@ -110,7 +104,7 @@ exports.deleteUserEmbarcacao = (req, res, next) => {
   UserEmbarcacao.findByPk(userEmbarcacaoId)
     .then(userEmbarcacao => {
       if (!userEmbarcacao) {
-        return res.status(404).json({ message: 'UserEmbarcacao not found!' });
+        return res.status(404).json({ message: 'UserEmbarcacao não encontrada.' });
       }
       return UserEmbarcacao.destroy({
         where: {
@@ -119,12 +113,12 @@ exports.deleteUserEmbarcacao = (req, res, next) => {
       });
     })
     .then(result => {
-      res.status(200).json({ message: 'UserEmbarcacao deleted!' });
+      res.status(200).json({ message: 'UserEmbarcacao excluída.' });
     })
     .catch(err => {
       console.error(err);
       res.status(500).json({
-        message: 'Error',
+        message: 'Erro',
         error: err.message
       });
     });

@@ -30,7 +30,7 @@ const handleRefreshToken = async (req, res) => {
             }
         );
     } catch (error) {
-        console.error('Error in refresh token handler:', error);
+        console.error('Erro na atualização de token:', error);
         res.sendStatus(500);
     }
 };

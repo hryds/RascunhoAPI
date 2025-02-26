@@ -9,7 +9,7 @@ const handleLogout = async (req, res) => {
     try {
         const foundUser = await User.findOne({ where: { refreshtoken: refreshToken } });
         if (!foundUser) {
-            console.log('No user found')
+            console.log('Usuário não encontrado.')
             res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
             return res.sendStatus(204);
         }
@@ -20,7 +20,7 @@ const handleLogout = async (req, res) => {
         res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
         res.sendStatus(204);
     } catch (error) {
-        console.error('Error during logout:', error);
+        console.error('Erro ao realizar logout:', error);
         res.sendStatus(500);
     }
 };

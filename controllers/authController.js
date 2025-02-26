@@ -7,7 +7,7 @@ const handleLogin = async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-        return res.status(400).json({ message: 'Email e senha são obrigatórios.' });
+        return res.status(400).json({ message: 'Email e Senha são obrigatórios.' });
     }
 
     try {
@@ -36,9 +36,9 @@ const handleLogin = async (req, res) => {
 
             res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 });
             res.json({
-                success: `Usuário ${email} logado!`,
+                success: `Usuário ${email} logado.`,
                 accessToken,
-                refreshToken, // 
+                refreshToken,
                 foundId,
             });
         } else {
@@ -54,7 +54,7 @@ const verifyID = async (req, res) => {
     try {
         const authHeader = req.headers['authorization'];
         if (!authHeader) {
-            return res.status(401).json({ message: 'Token não fornecido' });
+            return res.status(401).json({ message: 'Token não fornecido.' });
         }
 
         const token = authHeader.split(' ')[1];
@@ -63,12 +63,12 @@ const verifyID = async (req, res) => {
         const user = await User.findOne({ where: { email: decoded.email } });
 
         if (!user) {
-            return res.status(404).json({ message: 'Usuário não encontrado' });
+            return res.status(404).json({ message: 'Usuário não encontrado.' });
         }
         res.json({ usersessionid: user.id });
     } catch (error) {
         console.error(error);
-        res.status(403).json({ message: 'Token inválido' });
+        res.status(403).json({ message: 'Token inválido.' });
     }
 };
 

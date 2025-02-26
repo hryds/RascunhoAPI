@@ -11,7 +11,7 @@ exports.getEspecies = (req, res, next) => {
     .catch(err => {
       console.error(err);
       res.status(500).json({
-        message: 'Error',
+        message: 'Erro',
         error: err.message
       });
     });
@@ -23,14 +23,14 @@ exports.getEspecie = (req, res, next) => {
   Especie.findByPk(especieId)
     .then(especie => {
       if (!especie) {
-        return res.status(404).json({ message: 'Especie not found!' });
+        return res.status(404).json({ message: 'Espécie não encontrada.' });
       }
       res.status(200).json({ especie: especie });
     })
     .catch(err => {
       console.error(err);
       res.status(500).json({
-        message: 'Error',
+        message: 'Erro',
         error: err.message
       });
     });
@@ -45,27 +45,23 @@ exports.createEspecie = (req, res, next) => {
     nomeCientifico: nomeCientifico
   })
     .then(result => {
-      console.log('Created Especie');
+      console.log('Espécie criada.');
       res.status(201).json({
-        message: 'Especie created successfully!',
+        message: 'Espécie criada.',
         especie: result
       });
     })
     .catch(err => {
       console.error(err);
-
-      // Erro específico de violação de chave única
       if (err.name === 'SequelizeUniqueConstraintError') {
-        return res.status(400).json({ message: 'Duplicate entry detected for RGP or other unique field.' });
+        return res.status(400).json({ message: 'Campo duplicado.' });
       }
 
-      // Erro de validação de campo obrigatório
       if (err.name === 'SequelizeValidationError') {
-        return res.status(400).json({ message: 'Validation error: missing required fields.', errors: err.errors });
+        return res.status(400).json({ message: 'Erro de validação: é necessário preencher todos os campos obrigatórios.', errors: err.errors });
       }
-
-      // Erro genérico
-      res.status(500).json({ message: 'An unexpected error occurred.', error: err });
+      
+      res.status(500).json({ message: 'Um erro inesperado ocorreu, tente novamente.', error: err });
     });
 }
 
@@ -77,30 +73,27 @@ exports.updateEspecie = (req, res, next) => {
   Especie.findByPk(especieId)
     .then(especie => {
       if (!especie) {
-        return res.status(404).json({ message: 'Especie not found!' });
+        return res.status(404).json({ message: 'Espécie não encontrada.' });
       }
       especie.nomeComum = updatedNomeComum;
       especie.nomeCientifico = updatedNomeCientifico;
       return especie.save();
     })
     .then(result => {
-      res.status(200).json({ message: 'Especie updated!', especie: result });
+      res.status(200).json({ message: 'Espécie atualizada.', especie: result });
     })
     .catch(err => {
       console.error(err);
 
-      // Erro específico de violação de chave única
       if (err.name === 'SequelizeUniqueConstraintError') {
-        return res.status(400).json({ message: 'Duplicate entry detected for RGP or other unique field.' });
+        return res.status(400).json({ message: 'Campo duplicado.' });
       }
 
-      // Erro de validação de campo obrigatório
       if (err.name === 'SequelizeValidationError') {
-        return res.status(400).json({ message: 'Validation error: missing required fields.', errors: err.errors });
+        return res.status(400).json({ message: 'Erro de validação: é necessário preencher todos os campos obrigatórios.', errors: err.errors });
       }
 
-      // Erro genérico
-      res.status(500).json({ message: 'An unexpected error occurred.', error: err });
+      res.status(500).json({ message: 'Um erro inesperado ocorreu, tente novamente.', error: err });
     });
 }
 
@@ -110,7 +103,7 @@ exports.deleteEspecie = (req, res, next) => {
   Especie.findByPk(especieId)
     .then(especie => {
       if (!especie) {
-        return res.status(404).json({ message: 'Especie not found!' });
+        return res.status(404).json({ message: 'Espécie não encontrada.' });
       }
       return Especie.destroy({
         where: {
@@ -119,12 +112,12 @@ exports.deleteEspecie = (req, res, next) => {
       });
     })
     .then(result => {
-      res.status(200).json({ message: 'Especie deleted!' });
+      res.status(200).json({ message: 'Espécie excluída.' });
     })
     .catch(err => {
       console.error(err);
       res.status(500).json({
-        message: 'Error',
+        message: 'Erro',
         error: err.message
       });
     });

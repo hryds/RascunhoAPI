@@ -9,7 +9,11 @@ const userScheme = Joi.object({
         'string.min': 'A senha deve ter pelo menos {{#limit}} caracteres',
         'any.required': 'A senha é obrigatória',
     }),
-    email: Joi.string().email().required(),
+    email: Joi.string().email().required().messages({
+        'string.empty': 'O email é obrigatório',
+        'string.email': 'O email deve ser um endereço válido',
+        'any.required': 'O email é obrigatório',
+    }),
     cnpj: Joi.string().min(14).required(),
     tipo: Joi.string().valid('admin', 'comum').required(),
     status: Joi.string().valid('aprovado', 'pendente', 'rejeitado').required(),
@@ -31,7 +35,11 @@ const validateUser = (req, res, next) => {
 
 const userSchemeNoPassword = Joi.object({
     nome: Joi.string().min(1).required(),
-    email: Joi.string().email().required(),
+    email: Joi.string().email().required().messages({
+        'string.empty': 'O email é obrigatório',
+        'string.email': 'O email deve ser um endereço válido',
+        'any.required': 'O email é obrigatório',
+    }),
     cnpj: Joi.string().min(14).required(),
     rgp: Joi.string().min(10).required(),
     cep: Joi.string().min(8).required(),

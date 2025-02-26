@@ -13,7 +13,7 @@ exports.getUsers = (req, res, next) => {
     .catch(err => {
       console.error(err);
       res.status(500).json({
-        message: 'Error',
+        message: 'Erro ao recuperar usuários.',
         error: err.message
       });
     });
@@ -25,14 +25,14 @@ exports.getUser = (req, res, next) => {
   User.findByPk(userId)
     .then(user => {
       if (!user) {
-        return res.status(404).json({ message: 'User not found!' });
+        return res.status(404).json({ message: 'Usuário não encontrado.' });
       }
       res.status(200).json({ user: user });
     })
     .catch(err => {
       console.error(err);
       res.status(500).json({
-        message: 'Error',
+        message: 'Erro ao recuperar usuário.',
         error: err.message
       });
     });
@@ -68,12 +68,11 @@ exports.createUser = async (req, res, next) => {
     });
 
     res.status(201).json({
-      message: 'User created successfully!',
+      message: 'Usuário criado.',
       user: user,
     });
   } catch (err) {
     console.error(err);
-    // Erro específico de violação de chave única
     if (err.name === 'SequelizeUniqueConstraintError') {
       const duplicatedFields = err.errors.map(error => error.path);
       return res.status(400).json({
@@ -81,14 +80,10 @@ exports.createUser = async (req, res, next) => {
         fields: duplicatedFields
       });
     }
-
-    // Erro de validação de campo obrigatório
     if (err.name === 'SequelizeValidationError') {
-      return res.status(400).json({ message: 'Erro de validação: é necessário preencher todos os campos obrigatórios', errors: err.errors });
+      return res.status(400).json({ message: 'Erro de validação: é necessário preencher todos os campos obrigatórios.', errors: err.errors });
     }
-
-    // Erro genérico
-    res.status(500).json({ message: 'Um erro inesperado ocorreu, tente novamente..', error: err });
+    res.status(500).json({ message: 'Um erro inesperado ocorreu, tente novamente.', error: err });
   }
 };
 
@@ -110,7 +105,7 @@ exports.updateUser = async (req, res, next) => {
     const user = await User.findByPk(userId);
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found!' });
+      return res.status(404).json({ message: 'Usuário não encontrado.' });
     }
 
     user.nome = updatedNome;
@@ -129,22 +124,19 @@ exports.updateUser = async (req, res, next) => {
     }
 
     const result = await user.save();
-    res.status(200).json({ message: 'User updated!', user: result });
+    res.status(200).json({ message: 'Usuário atualizado.', user: result });
   } catch (err) {
     console.error(err);
 
-    // Erro específico de violação de chave única
     if (err.name === 'SequelizeUniqueConstraintError') {
-      return res.status(400).json({ message: 'Duplicate entry detected for RGP or other unique field.' });
+      return res.status(400).json({ message: 'Campo duplicado.' });
     }
 
-    // Erro de validação de campo obrigatório
     if (err.name === 'SequelizeValidationError') {
-      return res.status(400).json({ message: 'Validation error: missing required fields.', errors: err.errors });
+      return res.status(400).json({ message: 'Erro de validação: é necessário preencher todos os campos obrigatórios.', errors: err.errors });
     }
 
-    // Erro genérico
-    res.status(500).json({ message: 'An unexpected error occurred.', error: err });
+    res.status(500).json({ message: 'Um erro inesperado ocorreu, tente novamente.', error: err });
   }
 };
 
@@ -162,7 +154,7 @@ exports.updateUserNoPassword = async (req, res, next) => {
     const user = await User.findByPk(userId);
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found!' });
+      return res.status(404).json({ message: 'Usuário não encontrado.' });
     }
 
     user.nome = updatedNome;
@@ -173,10 +165,11 @@ exports.updateUserNoPassword = async (req, res, next) => {
     user.complemento = updatedComplemento;
 
     const result = await user.save();
-    res.status(200).json({ message: 'User  info updated!', user: result });
+    res.status(200).json({ message: 'Usuário atualizado.', user: result });
   } catch (err) {
     console.error(err);
-    // Erro específico de violação de chave única
+
+
     if (err.name === 'SequelizeUniqueConstraintError') {
       const duplicatedFields = err.errors.map(error => error.path);
       return res.status(400).json({
@@ -185,13 +178,11 @@ exports.updateUserNoPassword = async (req, res, next) => {
       });
     }
 
-    // Erro de validação de campo obrigatório
     if (err.name === 'SequelizeValidationError') {
-      return res.status(400).json({ message: 'Erro de validação: é necessário preencher todos os campos obrigatórios', errors: err.errors });
+      return res.status(400).json({ message: 'Erro de validação: é necessário preencher todos os campos obrigatórios.', errors: err.errors });
     }
 
-    // Erro genérico
-    res.status(500).json({ message: 'Um erro inesperado ocorreu, tente novamente..', error: err });
+    res.status(500).json({ message: 'Um erro inesperado ocorreu, tente novamente.', error: err });
   }
 };
 
@@ -205,24 +196,24 @@ exports.updateUserStatus = async (req, res, next) => {
     const user = await User.findByPk(userId);
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found!' });
+      return res.status(404).json({ message: 'Usuário não encontrado.' });
     }
 
     if (updatedStatus === undefined) {
-      return res.status(400).json({ message: 'Status field is required.' });
+      return res.status(400).json({ message: `O campo "status" é obrigatório.` });
     }
     user.status = updatedStatus;
 
     const result = await user.save();
-    res.status(200).json({ message: 'User status updated!', user: result });
+    res.status(200).json({ message: 'Status atualizado.', user: result });
   } catch (err) {
     console.error(err);
 
     if (err.name === 'SequelizeValidationError') {
-      return res.status(400).json({ message: 'Validation error.', errors: err.errors });
+      return res.status(400).json({ message: 'Erro de validação: é necessário preencher todos os campos obrigatórios.', errors: err.errors });
     }
 
-    res.status(500).json({ message: 'An unexpected error occurred.', error: err });
+    res.status(500).json({ message: 'Um erro inesperado ocorreu, tente novamente.', error: err });
   }
 };
 
@@ -234,24 +225,24 @@ exports.updateUserType = async (req, res, next) => {
     const user = await User.findByPk(userId);
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found!' });
+      return res.status(404).json({ message: 'Usuário não encontrado.' });
     }
 
     if (updatedTipo === undefined) {
-      return res.status(400).json({ message: 'Tipo field is required.' });
+      return res.status(400).json({ message: `O campo "tipo" é obrigatório.` });
     }
     user.tipo = updatedTipo;
 
     const result = await user.save();
-    res.status(200).json({ message: 'User status updated!', user: result });
+    res.status(200).json({ message: 'Tipo atualizado.', user: result });
   } catch (err) {
     console.error(err);
 
     if (err.name === 'SequelizeValidationError') {
-      return res.status(400).json({ message: 'Validation error.', errors: err.errors });
+      return res.status(400).json({ message: 'Erro de validação: é necessário preencher todos os campos obrigatórios.', errors: err.errors });
     }
 
-    res.status(500).json({ message: 'An unexpected error occurred.', error: err });
+    res.status(500).json({ message: 'Um erro inesperado ocorreu, tente novamente.', error: err });
   }
 };
 
@@ -264,24 +255,24 @@ exports.updateUserPassword = async (req, res, next) => {
     const user = await User.findByPk(userId);
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found!' });
+      return res.status(404).json({ message: 'Usuário não encontrado.' });
     }
-    
+
     if (updatedPassword) {
       const saltRounds = 10;
       user.password = await bcrypt.hash(updatedPassword, saltRounds);
     }
 
     const result = await user.save();
-    res.status(200).json({ message: 'User password updated!', user: result });
+    res.status(200).json({ message: 'Senha alterada.', user: result });
   } catch (err) {
     console.error(err);
 
     if (err.name === 'SequelizeValidationError') {
-      return res.status(400).json({ message: 'Validation error.', errors: err.errors });
+      return res.status(400).json({ message: 'Erro de validação: é necessário preencher todos os campos obrigatórios.', errors: err.errors });
     }
 
-    res.status(500).json({ message: 'An unexpected error occurred.', error: err });
+    res.status(500).json({ message: 'Um erro inesperado ocorreu, tente novamente.', error: err });
   }
 };
 
@@ -291,7 +282,7 @@ exports.deleteUser = (req, res, next) => {
   User.findByPk(userId)
     .then(user => {
       if (!user) {
-        return res.status(404).json({ message: 'User not found!' });
+        return res.status(404).json({ message: 'Usuário não encontrado.' });
       }
       return User.destroy({
         where: {
@@ -300,7 +291,7 @@ exports.deleteUser = (req, res, next) => {
       });
     })
     .then(result => {
-      res.status(200).json({ message: 'User deleted!' });
+      res.status(200).json({ message: 'Usuário excluído.' });
     })
     .catch(err => {
       console.error(err);
@@ -317,20 +308,20 @@ exports.resetPassword = async (req, res) => {
   const { email } = req.body;
 
   try {
-      const user = await User.findOne({ where: { email } });
-      if (!user) {
-          return res.status(404).json({ message: 'Usuário não encontrado.' });
-      }
-      const tempPassword = Math.random().toString(36).slice(-8);
-      const hashedPassword = await bcrypt.hash(tempPassword, 10);
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      return res.status(404).json({ message: 'Usuário não encontrado.' });
+    }
+    const tempPassword = Math.random().toString(36).slice(-8);
+    const hashedPassword = await bcrypt.hash(tempPassword, 10);
 
-      user.password = hashedPassword;
-      await user.save();
-      await sendPasswordResetEmail(email, tempPassword);
+    user.password = hashedPassword;
+    await user.save();
+    await sendPasswordResetEmail(email, tempPassword);
 
-      res.status(200).json({ message: 'Senha temporária enviada para o seu e-mail.' });
+    res.status(200).json({ message: 'Senha temporária enviada para o seu email.' });
   } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: 'Erro ao processar recuperação de senha.' });
+    console.error(err);
+    res.status(500).json({ message: 'Erro ao processar recuperação de senha. Tente novamente mais tarde.' });
   }
 };

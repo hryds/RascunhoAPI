@@ -12,7 +12,7 @@ exports.getEmbarcacoes = (req, res, next) => {
     .catch(err => {
       console.error(err);
       res.status(500).json({
-        message: 'Error',
+        message: 'Erro',
         error: err.message
       });
     });
@@ -24,14 +24,14 @@ exports.getEmbarcacao = (req, res, next) => {
   Embarcacao.findByPk(embarcacaoId)
     .then(embarcacao => {
       if (!embarcacao) {
-        return res.status(404).json({ message: 'Embarcação not found!' });
+        return res.status(404).json({ message: 'Embarcação não encontrada.' });
       }
       res.status(200).json({ embarcacao: embarcacao });
     })
     .catch(err => {
       console.error(err);
       res.status(500).json({
-        message: 'Error',
+        message: 'Erro',
         error: err.message
       });
     });
@@ -41,18 +41,18 @@ exports.getEmbarcacao = (req, res, next) => {
 exports.getEmbarcacaobyRGP = (req, res, next) => {
   const embarcacaoRGP = req.params.embarcacaoRGP;
   Embarcacao.findOne({
-    where: { rgp: embarcacaoRGP }  
+    where: { rgp: embarcacaoRGP }
   })
     .then(embarcacao => {
       if (!embarcacao) {
-        return res.status(404).json({ message: 'Embarcação not found!' });
+        return res.status(404).json({ message: 'Embarcação não encontrada.' });
       }
       res.status(200).json({ embarcacao: embarcacao });
     })
     .catch(err => {
       console.error(err);
       res.status(500).json({
-        message: 'Error',
+        message: 'Erro',
         error: err.message
       });
     });
@@ -70,27 +70,25 @@ exports.createEmbarcacao = (req, res, next) => {
     rgp: rgp,
   })
     .then(result => {
-      console.log('Created Embarcação');
+      console.log('Embarcação criada.');
       res.status(201).json({
-        message: 'Embarcação created successfully!',
+        message: 'Embarcação criada.',
         embarcacao: result
       });
     })
     .catch(err => {
       console.error(err);
 
-      // Erro - Violação de Chave Única
       if (err.name === 'SequelizeUniqueConstraintError') {
-        return res.status(400).json({ message: 'Duplicate Entry' });
+        return res.status(400).json({ message: 'Embarcação duplicada.' });
       }
 
-      // Erro - Campo obrigatório
       if (err.name === 'SequelizeValidationError') {
-        return res.status(400).json({ message: 'Validation Error', errors: err.errors });
+        return res.status(400).json({ message: 'Erro de validação: é necessário preencher todos os campos obrigatórios.', errors: err.errors });
       }
 
-      // Erro - Outros
-      res.status(500).json({ message: 'An unexpected error occurred.', error: err });
+
+      res.status(500).json({ message: 'Um erro inesperado ocorreu, tente novamente.', error: err });
     });
 };
 
@@ -103,30 +101,26 @@ exports.updateEmbarcacao = (req, res, next) => {
   Embarcacao.findByPk(embarcacaoId)
     .then(embarcacao => {
       if (!embarcacao) {
-        return res.status(404).json({ message: 'Embarcacao not found!' });
+        return res.status(404).json({ message: 'Embarcação não encontrada.' });
       }
       embarcacao.nome = updatedNome;
       embarcacao.rgp = updatedRgp;
       return embarcacao.save();
     })
     .then(result => {
-      res.status(200).json({ message: 'Embarcacao updated!', embarcacao: result });
+      res.status(200).json({ message: 'Embarcação atualizada.', embarcacao: result });
     })
     .catch(err => {
       console.error(err);
-
-      // Erro - Violação de Chave Única
       if (err.name === 'SequelizeUniqueConstraintError') {
-        return res.status(400).json({ message: 'Duplicate Entry' });
+        return res.status(400).json({ message: 'Embarcação duplicada.' });
       }
 
-      // Erro - Campo obrigatório
       if (err.name === 'SequelizeValidationError') {
-        return res.status(400).json({ message: 'Validation Error', errors: err.errors });
+        return res.status(400).json({ message: 'Erro de validação: é necessário preencher todos os campos obrigatórios.', errors: err.errors });
       }
 
-      // Erro - Outros
-      res.status(500).json({ message: 'An unexpected error occurred.', error: err });
+      res.status(500).json({ message: 'Um erro inesperado ocorreu, tente novamente.', error: err });
     });
 }
 
@@ -136,7 +130,7 @@ exports.deleteEmbarcacao = (req, res, next) => {
   Embarcacao.findByPk(embarcacaoId)
     .then(embarcacao => {
       if (!embarcacao) {
-        return res.status(404).json({ message: 'Embarcacao not found!' });
+        return res.status(404).json({ message: 'Embarcação não encontrada.' });
       }
       return Embarcacao.destroy({
         where: {
@@ -145,11 +139,11 @@ exports.deleteEmbarcacao = (req, res, next) => {
       });
     })
     .then(result => {
-      res.status(200).json({ message: 'Embarcacao deleted!' });
+      res.status(200).json({ message: 'Embarcação excluída.' });
     }).catch(err => {
       console.error(err);
       res.status(500).json({
-        message: 'Error',
+        message: 'Erro',
         error: err.message
       });
     });

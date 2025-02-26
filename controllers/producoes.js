@@ -12,7 +12,7 @@ exports.getProducoes = (req, res, next) => {
     .catch(err => {
       console.error(err);
       res.status(500).json({
-        message: 'Error',
+        message: 'Erro',
         error: err.message
       });
     });
@@ -24,14 +24,14 @@ exports.getProducao = (req, res, next) => {
   Producao.findByPk(producaoId)
     .then(producao => {
       if (!producao) {
-        return res.status(404).json({ message: 'Producao not found!' });
+        return res.status(404).json({ message: 'Produção não encontrada.' });
       }
       res.status(200).json({ producao: producao });
     })
     .catch(err => {
       console.error(err);
       res.status(500).json({
-        message: 'Error',
+        message: 'Erro',
         error: err.message
       });
     });
@@ -48,27 +48,24 @@ exports.createProducao = (req, res, next) => {
     userId: userId,
   })
     .then(result => {
-      console.log('Created Producao');
+      console.log('Produção criada.');
       res.status(201).json({
-        message: 'Producao created successfully!',
+        message: 'Produção criada.',
         producao: result
       });
     })
     .catch(err => {
       console.error(err);
 
-      // Erro específico de violação de chave única
       if (err.name === 'SequelizeUniqueConstraintError') {
-        return res.status(400).json({ message: 'Duplicate entry detected for RGP or other unique field.' });
+        return res.status(400).json({ message: 'Campo duplicado.' });
       }
 
-      // Erro de validação de campo obrigatório
       if (err.name === 'SequelizeValidationError') {
-        return res.status(400).json({ message: 'Validation error: missing required fields.', errors: err.errors });
+        return res.status(400).json({ message: 'Erro de validação: é necessário preencher todos os campos obrigatórios.', errors: err.errors });
       }
 
-      // Erro genérico
-      res.status(500).json({ message: 'An unexpected error occurred.', error: err });
+      res.status(500).json({ message: 'Um erro inesperado ocorreu, tente novamente.', error: err });
     });
 }
 
@@ -82,7 +79,7 @@ exports.updateProducao = (req, res, next) => {
   Producao.findByPk(producaoId)
     .then(producao => {
       if (!producao) {
-        return res.status(404).json({ message: 'Producao not found!' });
+        return res.status(404).json({ message: 'Produção não encontrada.' });
       }
       producao.dataInicial = updatedDataInicial;
       producao.dataFinal = updatedDataFinal;
@@ -90,23 +87,20 @@ exports.updateProducao = (req, res, next) => {
       return producao.save();
     })
     .then(result => {
-      res.status(200).json({ message: 'Producao updated!', producao: result });
+      res.status(200).json({ message: 'Produção atualizada.', producao: result });
     })
     .catch(err => {
       console.error(err);
 
-      // Erro específico de violação de chave única
       if (err.name === 'SequelizeUniqueConstraintError') {
-        return res.status(400).json({ message: 'Duplicate entry detected for RGP or other unique field.' });
+        return res.status(400).json({ message: 'Campo duplicado.' });
       }
 
-      // Erro de validação de campo obrigatório
       if (err.name === 'SequelizeValidationError') {
-        return res.status(400).json({ message: 'Validation error: missing required fields.', errors: err.errors });
+        return res.status(400).json({ message: 'Erro de validação: é necessário preencher todos os campos obrigatórios.', errors: err.errors });
       }
 
-      // Erro genérico
-      res.status(500).json({ message: 'An unexpected error occurred.', error: err });
+      res.status(500).json({ message: 'Um erro inesperado ocorreu, tente novamente.', error: err });
     });
 }
 
@@ -116,7 +110,7 @@ exports.deleteProducao = (req, res, next) => {
   Producao.findByPk(producaoId)
     .then(producao => {
       if (!producao) {
-        return res.status(404).json({ message: 'Producao not found!' });
+        return res.status(404).json({ message: 'Produção não encontrada.' });
       }
       return Producao.destroy({
         where: {
@@ -125,12 +119,12 @@ exports.deleteProducao = (req, res, next) => {
       });
     })
     .then(result => {
-      res.status(200).json({ message: 'Producao deleted!' });
+      res.status(200).json({ message: 'Produção excluída.' });
     })
     .catch(err => {
       console.error(err);
       res.status(500).json({
-        message: 'Error',
+        message: 'Erro',
         error: err.message
       });
     });
