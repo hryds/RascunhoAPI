@@ -88,17 +88,18 @@ GET http://localhost:3000/embarcacoes/rgp/MA12356995
 
 ### createEmbarcacao
 POST http://localhost:3000/embarcacoes
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtcHJlc2FAYXV0aC5jb20iLCJpYXQiOjE3Mzg4NTIyMjgsImV4cCI6MTczODg5NTQyOH0.yv9vhwSJh-1E-jcDtHBLkbwFBLJqJNLqO7STer3bX3Y
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc0MDU3MzE3NiwiZXhwIjoxNzQwNjE2Mzc2fQ.4DyCG-GH2fxTho1tM1M9c14eM4zM7vg1XKaVg4h46dI
 Content-Type: application/json
 
 {
-    "nome": "",
-    "rgp": "MA12356995"
+    "nome": "a",
+    "rgp": "MA12356993"
 
 }
 
 ### updateEmbarcacao
 PUT http://localhost:3000/embarcacoes/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc0MDU3MzE3NiwiZXhwIjoxNzQwNjE2Mzc2fQ.4DyCG-GH2fxTho1tM1M9c14eM4zM7vg1XKaVg4h46dI
 Content-Type: application/json
 
 {

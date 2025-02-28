@@ -3,7 +3,6 @@ INSERT INTO especies ("nomeCientifico", "nomeComum") VALUES
 ('Thunnus albacares' ,'Albacora laje') ,
 ('Thunnus alalunga' ,'Albacora branca') ,
 ('Thunnus obesus' ,'Albacora bandolim') ,
-('Bonito-listrado' ,'SKJ') ,
 ('Thunnus atlanticus' ,'Albacorinha') ,
 ('Katsuwonus pelamis' ,'Bonito listrado') ,
 ('Sarda sarda' ,'Sarda') ,

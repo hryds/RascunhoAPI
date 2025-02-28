@@ -109,9 +109,11 @@ const producaoEmbarcacaoEspecieScheme = Joi.object({
     producaoId: Joi.number().integer().required(),
     embarcacaoId: Joi.number().integer().required(),
     especieId: Joi.number().integer().required(),
-    peso: Joi.number().min(0).required().messages({
-        'number.base': 'Peso: insira apenas caracteres numéricos',
-        'number.min': 'Peso: valor inválido',
+    peso: Joi.number().min(0.1).max(300000).required().messages({
+        'number.base': 'Peso: insira apenas caracteres numéricos.',
+        'number.min': `Peso: valor inválido. Valor mínimo: {#limit} kg.`,
+        'number.max': `Peso: valor inválido. Valor máximo: {#limit} kg.`,
+        'number.unsafe': 'Peso: valor inválido. Valor mínimo: 0.1 kg. Valor máximo: 300000 kg.'
     }),
 });
 
