@@ -1,6 +1,6 @@
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
-const { sendWelcomeEmail, sendPasswordResetEmail } = require('../utils/mailer');
+const { sendWelcomeEmail, sendPasswordResetEmail, sendRejectedStatusEmail, sendStatusEmail } = require('../utils/mailer');
 
 // CRUD Controllers
 
@@ -205,7 +205,15 @@ exports.updateUserStatus = async (req, res, next) => {
     user.status = updatedStatus;
 
     const result = await user.save();
+
+    if (updatedStatus.toLowerCase() === 'aprovado') {
+      await sendStatusEmail(user.email, user.nome);
+    } else {
+      await sendRejectedStatusEmail(user.email, user.nome);
+    }
+
     res.status(200).json({ message: 'Status atualizado.', user: result });
+
   } catch (err) {
     console.error(err);
 

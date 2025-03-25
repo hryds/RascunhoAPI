@@ -20,6 +20,40 @@ const sendWelcomeEmail = async (toEmail, userName) => {
     await transporter.sendMail(mailOptions);
 };
 
+const sendStatusEmail = async (toEmail, userName) => {
+    const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: toEmail,
+        subject: 'Cadastro Aprovado - Mapa de Produção Atuns e Afins',
+        html: `
+        <div style="font-family: Arial, sans-serif; color: #333; padding: 20px;">
+            <h2>Cadastro Aprovado - Mapa de Produção Atuns e Afins</h2>
+            <p>Seu cadastro foi aprovado. Seu perfil já está habilitado para <strong>Reportar Produção</strong>. </p>
+            <img src="https://pesqbrasil-pescadorprofissional.agro.gov.br/assets/logo-ministerio-pesca.png" alt="Assinatura" style="width: 200px; height: auto;">
+        </div>
+    `
+    };
+
+    await transporter.sendMail(mailOptions);
+};
+
+const sendRejectedStatusEmail = async (toEmail, userName) => {
+    const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: toEmail,
+        subject: 'Cadastro Rejeitado - Mapa de Produção Atuns e Afins',
+        html: `
+        <div style="font-family: Arial, sans-serif; color: #333; padding: 20px;">
+            <h2>Cadastro Rejeitado - Mapa de Produção Atuns e Afins</h2>
+            <p>Seu cadastro foi rejeitado. Atualize seus dados e tente novamente. </p>
+            <img src="https://pesqbrasil-pescadorprofissional.agro.gov.br/assets/logo-ministerio-pesca.png" alt="Assinatura" style="width: 200px; height: auto;">
+        </div>
+    `
+    };
+
+    await transporter.sendMail(mailOptions);
+};
+
 const sendPasswordResetEmail = async (toEmail, tempPassword) => {
     const mailOptions = {
         from: `"Mapa de Produção Atuns e Afins" <${process.env.EMAIL_USER}>`,
@@ -39,4 +73,4 @@ const sendPasswordResetEmail = async (toEmail, tempPassword) => {
     await transporter.sendMail(mailOptions);
 };
 
-module.exports = { sendWelcomeEmail, sendPasswordResetEmail };
+module.exports = { sendWelcomeEmail, sendPasswordResetEmail, sendStatusEmail, sendRejectedStatusEmail };
